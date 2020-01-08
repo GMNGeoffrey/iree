@@ -31,12 +31,16 @@ jobs:
         run: git submodule update --init --depth 1000 --jobs 8
       - name: Synchronizing submodules
         run: ./git_scripts/submodule_versions.py import
+      - name: Checking Diff
+        run: git diff --exit-code
       - name: Committing updates
+        if: failure()
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "noreply+action@github.com"
+          git config --local user.name "Submodule Synchronize Action"
           git commit -am "Synchronize submodules"
       - name: Pushing changes
+        if: failure
         uses: ad-m/github-push-action@v0.5.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
