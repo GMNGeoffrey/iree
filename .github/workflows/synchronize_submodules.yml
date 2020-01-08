@@ -40,7 +40,7 @@ jobs:
           git config --local user.name "Submodule Synchronize Action"
           git commit -am "Synchronize submodules"
       - name: Pushing changes
-        if: failure
+        if: failure()
         uses: ad-m/github-push-action@v0.5.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
