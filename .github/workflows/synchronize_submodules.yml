@@ -22,7 +22,7 @@ on:
       - master
 
 jobs:
-  linux:
+  synchronize:
     runs-on: ubuntu-18.04
     steps:
       - name: Checking out repository
@@ -31,16 +31,16 @@ jobs:
         run: git submodule update --init --depth 1000 --jobs 8
       - name: Synchronizing submodules
         run: ./git_scripts/submodule_versions.py import
-      - name: Checking Diff
-        run: git diff --cached --exit-code
       - name: Committing updates
-        if: failure()
         run: |
-          git config --local user.email "noreply+action@github.com"
-          git config --local user.name "Submodule Synchronize Action"
-          git commit -am "Synchronize submodules"
+          # Only commit if there's a diff.
+          if ! git diff --cached --exit-code; then
+            git config --local user.email "noreply+action@github.com"
+            git config --local user.name "Submodule Synchronize Action"
+            git commit -am "Synchronize submodules"
+          fi
       - name: Pushing changes
-        if: failure()
+        # Will push regardless, but exit successfully if already up to date with master
         uses: ad-m/github-push-action@v0.5.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
