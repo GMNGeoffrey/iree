@@ -16,7 +16,7 @@
 # works on PRs from the main repository (not forks) so the person creating
 # these PRs already has write access to the repository.
 
-question:  # Label that actually already exists
+kokor:run:
   - '**'      # index.php | src/main.php
   - '.*'      # .gitignore
   - '.*/**'   # .github/workflows/label.yml
