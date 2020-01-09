@@ -21,6 +21,8 @@ on: [pull_request]
 
 jobs:
   label_pr:
+    # This won't work in forks anyway because they don't have permissions to apply labels.
+    if: github.repository == "GMNGeoffrey/iree"
     runs-on: ubuntu-18.04
     env:
       AUTHOR: ${{ github.actor }}
