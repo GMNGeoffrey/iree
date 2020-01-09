@@ -20,14 +20,14 @@ name: Kokoro Labeler
 on: [pull_request]
 
 jobs:
-  print_author:
+  label_pr:
     runs-on: ubuntu-18.04
     env:
       AUTHOR: ${{ github.actor }}
     steps:
       - name: Printing author
         run: echo "$AUTHOR"
-      - name: Adding kokoro label
+      - name: Adding label
         uses: actions/labeler@v2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
