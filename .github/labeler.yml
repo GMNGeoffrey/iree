@@ -19,3 +19,6 @@
 
 some_label:
   - ./**
+
+some_other_label:
+  - ./*
