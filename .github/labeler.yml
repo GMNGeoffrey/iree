@@ -17,6 +17,6 @@
 # these PRs already has write access to the repository.
 
 kokoro:run:
-  - '**'      # index.php | src/main.php
-  - '.*'      # .gitignore
-  - '.*/**'   # .github/workflows/label.yml
+  - '**'      # Normal files in the repository, e.g. "README.md", "iree/BUILD.bazel"
+  - '.*'      # Dot files at the root level, e.g. ".bazelrc", ".gitignore"
+  - '.*/**'   # Files in dotted directories, e.g. .github/labeler.yml
