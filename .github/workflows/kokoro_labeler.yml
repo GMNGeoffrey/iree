@@ -21,7 +21,7 @@ on: [pull_request]
 
 jobs:
   label_pr:
-    if: github.actor == 'gmngeoffrey"
+    if: github.actor == 'gmngeoffrey'
     runs-on: ubuntu-18.04
     steps:
       - name: Adding label
