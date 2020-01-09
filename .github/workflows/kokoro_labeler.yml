@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Note this action will only function on PRs that originate from the main
+# repository. Labeling will fail when the PR is from a fork.
+
 name: Kokoro Labeler
 
 on: [pull_request]
@@ -24,3 +27,7 @@ jobs:
     steps:
       - name: Printing author
         run: echo "$AUTHOR"
+      - name: Adding kokoro label
+        uses: actions/labeler@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
