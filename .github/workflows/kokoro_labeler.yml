@@ -21,7 +21,6 @@ on: [pull_request]
 
 jobs:
   label_pr:
-    # This won't work in forks anyway because they don't have permissions to apply labels.
     if: github.actor == 'gmngeoffrey"
     runs-on: ubuntu-18.04
     steps:
