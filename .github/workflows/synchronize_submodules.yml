@@ -38,6 +38,8 @@ jobs:
             git config --local user.email "noreply+action@github.com"
             git config --local user.name "Submodule Synchronize Action"
             git commit -am "Synchronize submodules"
+          else
+            echo "Submodules already up to date"
           fi
       - name: Pushing changes
         # Will push regardless, but exit successfully if already up to date with master
