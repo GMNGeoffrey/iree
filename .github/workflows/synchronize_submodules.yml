@@ -32,7 +32,7 @@ jobs:
       - name: Synchronizing submodules
         run: ./git_scripts/submodule_versions.py import
       - name: Checking Diff
-        run: git diff --exit-code
+        run: git diff --cached --exit-code
       - name: Committing updates
         if: failure()
         run: |
