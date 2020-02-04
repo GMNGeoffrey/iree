@@ -18,3 +18,15 @@
 
 // Order matters:
 #include "iree/compiler/Dialect/VMLA/IR/VMLAEnums.cpp.inc"
+
+namespace mlir {
+namespace iree_compiler {
+namespace IREE {
+namespace VMLA {
+
+#include "iree/compiler/Dialect/VMLA/IR/VMLAOpInterface.cpp.inc"
+
+}  // namespace VMLA
+}  // namespace IREE
+}  // namespace iree_compiler
+}  // namespace mlir

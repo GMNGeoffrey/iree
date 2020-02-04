@@ -21,12 +21,15 @@ iree_cc_library(
     "Passes.h"
   SRCS
     "CleanupPlaceholders.cpp"
+    "ConvertHLOToShapeDialect.cpp"
     "ExpandFunctionDynamicDims.cpp"
     "MaterializeShapeCalculations.cpp"
   DEPS
     iree::compiler::Dialect::Shape::IR
+    iree::compiler::Dialect::Shape::Plugins::XLA::XlaHloShapeBuilder
     MLIRIR
     MLIRPass
+    MLIRStandardOps
     MLIRTransforms
     tensorflow::mlir_xla
   ALWAYSLINK
