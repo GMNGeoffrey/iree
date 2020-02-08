@@ -17,10 +17,8 @@
 name: Update Submodules
 
 on:
-  push:
-    branches:
-      - master
-      - test-master
+  schedule:
+     - cron:  '*/5 * * * *'
 
 jobs:
   synchronize:
