@@ -258,7 +258,6 @@ if(${IREE_BUILD_COMPILER})
       tensorflow::mlir_xla
       ${IREE_COMPILER_DIALECT_MODULES}
       ${IREE_COMPILER_TARGET_BACKENDS}
-    ALWAYSLINK
     PUBLIC
   )
 
