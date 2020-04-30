@@ -71,7 +71,7 @@ Binding and parameter interface (derived from `hal.interface`).
 Syntax:
 
 ```
-operation ::= `vmla.abs` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.abs` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -97,7 +97,7 @@ operation ::= `vmla.abs` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.add` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.add` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -124,7 +124,7 @@ operation ::= `vmla.add` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.and` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.and` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -151,7 +151,7 @@ operation ::= `vmla.and` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.atan2` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.atan2` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -173,6 +173,15 @@ operation ::= `vmla.atan2` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_typ
 
 ### `vmla.batch.matmul` (IREE::VMLA::BatchMatMulOp)
 
+
+
+Syntax:
+
+```
+operation ::= `vmla.batch.matmul` $lhs`(`$lhs_shape `:` type($lhs_shape)`)` `:` $lhs_type`,`
+              $rhs`(`$rhs_shape `:` type($rhs_shape)`)` `:` $rhs_type`,`
+              `out` $dst`(`$dst_shape `:` type($dst_shape)`)` `:` $dst_type attr-dict
+```
 
 
 
@@ -199,13 +208,21 @@ operation ::= `vmla.atan2` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_typ
 
 Tensor-level pseudo-op of VMLA::BatchMatMulOp.
 
+Syntax:
+
+```
+operation ::= `vmla.batch.matmul.pseudo` $lhs`,` $rhs attr-dict `:`
+              `(`type($lhs)`,` type($rhs)`)` `->` type($dst)
+```
+
+
 This is a tensor-level version of VMLA::BatchMatMulOp, to facilitate
 the lowering process.
 
 All operands are rank-3 with the following dimension structure:
 - lhs = [B, FLHS, C]
 - rhs = [B, FRHS, C]
-- dst = [B, FLHS, FRHS]
+- dst = [B, FRHS, FLHS]
 Where:
 - B = batch dimension
 - C = contracting dimension
@@ -261,6 +278,13 @@ We insert the relevant transposes as needed in the compiler.
 
 
 
+Syntax:
+
+```
+operation ::= `vmla.buffer.alloc` `byte_length` `=` $byte_length attr-dict `:` type($result)
+```
+
+
 
 #### Operands:
 
@@ -276,6 +300,13 @@ We insert the relevant transposes as needed in the compiler.
 
 ### `vmla.buffer.byte_length` (IREE::VMLA::BufferByteLengthOp)
 
+
+
+Syntax:
+
+```
+operation ::= `vmla.buffer.byte_length` $value attr-dict `:` type($result)
+```
 
 
 
@@ -295,6 +326,13 @@ We insert the relevant transposes as needed in the compiler.
 
 
 
+Syntax:
+
+```
+operation ::= `vmla.buffer.clone` $src attr-dict `:` type($result)
+```
+
+
 
 #### Operands:
 
@@ -310,6 +348,13 @@ We insert the relevant transposes as needed in the compiler.
 
 ### `vmla.buffer.const` (IREE::VMLA::BufferConstOp)
 
+
+
+Syntax:
+
+```
+operation ::= `vmla.buffer.const` $value attr-dict `:` type($value) `->` type($result)
+```
 
 
 
@@ -329,6 +374,15 @@ We insert the relevant transposes as needed in the compiler.
 
 
 
+Syntax:
+
+```
+operation ::= `vmla.buffer.copy` $src`[`$src_byte_offset`]``,`
+              `out` $dst`[`$dst_byte_offset`]``,` `byte_length` `=` $byte_length
+              attr-dict
+```
+
+
 
 #### Operands:
 
@@ -344,6 +398,13 @@ We insert the relevant transposes as needed in the compiler.
 
 
 
+Syntax:
+
+```
+operation ::= `vmla.buffer.fill` $value`,` `out` $dst attr-dict
+```
+
+
 
 #### Operands:
 
@@ -354,6 +415,13 @@ We insert the relevant transposes as needed in the compiler.
 
 ### `vmla.buffer.load.i32` (IREE::VMLA::BufferLoadI32Op)
 
+
+
+Syntax:
+
+```
+operation ::= `vmla.buffer.load.i32` $src`[`$byte_offset`]` attr-dict `:` type($result)
+```
 
 
 
@@ -372,6 +440,14 @@ We insert the relevant transposes as needed in the compiler.
 
 ### `vmla.buffer.view` (IREE::VMLA::BufferViewOp)
 
+
+
+Syntax:
+
+```
+operation ::= `vmla.buffer.view` $src`[`$byte_offset`]``,` `byte_length` `=` $byte_length
+              attr-dict `:` type($result)
+```
 
 
 
@@ -396,7 +472,7 @@ We insert the relevant transposes as needed in the compiler.
 Syntax:
 
 ```
-operation ::= `vmla.ceil` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.ceil` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -422,7 +498,7 @@ operation ::= `vmla.ceil` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.clamp` `(`$a`,` $b`,` $c`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.clamp` $a`,` $b`,` $c`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -486,6 +562,13 @@ expanded into VM ops and the vmla.buffer.const op.
 
 
 
+Syntax:
+
+```
+operation ::= `vmla.convert` $src`,` `out` $dst attr-dict `:` $src_type `->` $dst_type
+```
+
+
 
 #### Attributes:
 
@@ -531,7 +614,7 @@ expanded into VM ops and the vmla.buffer.const op.
 Syntax:
 
 ```
-operation ::= `vmla.cos` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.cos` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -557,7 +640,7 @@ operation ::= `vmla.cos` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.div` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.div` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -584,7 +667,7 @@ operation ::= `vmla.div` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.exp` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.exp` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -610,7 +693,7 @@ operation ::= `vmla.exp` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.floor` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.floor` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -707,7 +790,7 @@ operation ::= `vmla.floor` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.log` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.log` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -733,7 +816,7 @@ operation ::= `vmla.log` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.max` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.max` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -760,7 +843,7 @@ operation ::= `vmla.max` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.min` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.min` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -787,7 +870,7 @@ operation ::= `vmla.min` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.mul` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.mul` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -814,7 +897,7 @@ operation ::= `vmla.mul` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.neg` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.neg` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -840,7 +923,7 @@ operation ::= `vmla.neg` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.not` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.not` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -866,7 +949,7 @@ operation ::= `vmla.not` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.or` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.or` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -993,7 +1076,7 @@ operation ::= `vmla.or` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.pow` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.pow` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -1089,7 +1172,7 @@ operation ::= `vmla.pow` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.rem` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.rem` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -1137,7 +1220,7 @@ operation ::= `vmla.rem` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.rsqrt` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.rsqrt` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -1183,7 +1266,7 @@ operation ::= `vmla.rsqrt` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.shl` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.shl` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -1210,7 +1293,7 @@ operation ::= `vmla.shl` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.shr` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.shr` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -1237,7 +1320,7 @@ operation ::= `vmla.shr` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.sin` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.sin` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -1263,7 +1346,7 @@ operation ::= `vmla.sin` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.sqrt` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.sqrt` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -1289,7 +1372,7 @@ operation ::= `vmla.sqrt` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.sub` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.sub` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -1316,7 +1399,7 @@ operation ::= `vmla.sub` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.tanh` `(`$src`,` $dst`)` attr-dict`:` $element_type
+operation ::= `vmla.tanh` $src`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
@@ -1359,6 +1442,14 @@ operation ::= `vmla.tanh` `(`$src`,` $dst`)` attr-dict`:` $element_type
 
 
 
+Syntax:
+
+```
+operation ::= `vmla.transpose` $src`(`$src_shape `:` type($src_shape)`)``,`
+              `out` $dst`(`$dst_shape `:` type($dst_shape)`)` attr-dict `:` $element_type
+```
+
+
 
 #### Attributes:
 
@@ -1383,7 +1474,7 @@ operation ::= `vmla.tanh` `(`$src`,` $dst`)` attr-dict`:` $element_type
 Syntax:
 
 ```
-operation ::= `vmla.xor` `(`$lhs`,` $rhs`,` $dst`)` attr-dict `:` $element_type
+operation ::= `vmla.xor` $lhs`,` $rhs`,` `out` $dst attr-dict `:` $element_type
 ```
 
 
