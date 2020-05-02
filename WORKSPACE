@@ -243,4 +243,4 @@ maybe(new_local_repository,
 )
 
 # Bootstrap TensorFlow deps last so that ours can take precedence.
-tf_repositories()
+tf_repositories(register_toolchains=False)
