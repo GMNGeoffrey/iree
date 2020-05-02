@@ -52,48 +52,34 @@ the final step in compilation.
 | :----: | ----------- |
 `results` | any type
 
-### `iree.load_input` (IREE::LoadInputOp)
+### `iree.placeholder` (IREE::PlaceholderOp)
 
-
+A placeholder op to feed a value/buffer into computation
 
 Syntax:
 
 ```
-operation ::= `iree.load_input` `(` $src `:` type($src) `)` attr-dict `:` type(results)
+operation ::= `iree.placeholder` `for` $purpose attr-dict `:` type($output)
 ```
 
 
+This op is intended as a way to represent a value or buffer that will be fed
+into computation. It can host additional attributes related to the value or
+buffer. This op can be used for the cases where one need to feed in value or
+buffer to computation in a function but cannot do that via the function
+argument due to ABI or contract issues.
 
-#### Operands:
+#### Attributes:
 
-| Operand | Description |
-| :-----: | ----------- |
-`src` | memref of signless integer or floating-point values
+| Attribute | MLIR Type | Description |
+| :-------: | :-------: | ----------- |
+`purpose` | StringAttr | string attribute
 
 #### Results:
 
 | Result | Description |
 | :----: | ----------- |
-&laquo;unnamed&raquo; | any type
-
-### `iree.store_output` (IREE::StoreOutputOp)
-
-
-
-Syntax:
-
-```
-operation ::= `iree.store_output` `(` $src `:` type($src) `,` $dst `:` type($dst) `)` attr-dict
-```
-
-
-
-#### Operands:
-
-| Operand | Description |
-| :-----: | ----------- |
-`src` | any type
-`dst` | memref of signless integer or floating-point values
+`output` | any type
 
 ### `iree.unfoldable_constant` (IREE::UnfoldableConstantOp)
 
