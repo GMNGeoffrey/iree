@@ -6,3 +6,5 @@ Test making another change
 Make a change directly on master
 
 Make another change directly on master.
+
+3. Change on master
