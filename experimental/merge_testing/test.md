@@ -6,4 +6,8 @@ First commit directly to master
 
 Second commit to google branch
 
+Second commit directly to master
+
 Third commit to google branch
+
+Third commit directly to master
