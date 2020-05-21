@@ -21,3 +21,5 @@ Fifth commit directly to master
 Add some feature
 
 Add some other feature
+
+Sixth commit directly to master
