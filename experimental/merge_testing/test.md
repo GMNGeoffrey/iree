@@ -19,3 +19,5 @@ Fourth commit directly to master
 Fifth commit directly to master
 
 Add some feature
+
+Add some other feature
