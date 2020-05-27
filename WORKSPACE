@@ -102,10 +102,8 @@ bazel_skylib_workspace()
 
 ###############################################################################
 # llvm-project
-load("@iree_core//build_tools/bazel/third_party_import/llvm-project:configure.bzl", "llvm_configure")
-maybe(llvm_configure,
-    name = "llvm-project",
-    workspace = "@iree_core//:WORKSPACE",
+maybe(local_repository,
+    name = "llvm_project",
     path = "third_party/llvm-project",
 )
 ###############################################################################
