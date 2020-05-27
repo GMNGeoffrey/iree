@@ -23,11 +23,11 @@ batch_norm_inference | ✓ | ✓ | ✓
 broadcast | ✓ | ✓ | ✓
 broadcast_add | ✓ | ✓ | ✗
 broadcast_in_dim | ✓ | ✓ | ✓
-clamp | ✓ | ✗ | ✓
+clamp | ✓ | ✓ | ✓
 compare | ✓ | ✓ | ✓
 concatenate | ✓ | ✗ | ✗
 constant | ✓ | ✓ | ✓
-convert | ✓ | ✗ | ✗
+convert | ✓ | ✓ | ✗
 convolution | ✓ | ✗ | ✓
 cosine | ✓ | ✓ | ✓
 divide | ✓ | ✓ | ✓
@@ -49,7 +49,7 @@ reduce | ✓ | ✓ | ✓
 reduce_window | ✓ | ✗ | ✓
 remainder | ✓ | ✓ | ✓
 reshape | ✓ | ✓ | ✓
-reverse | ✓ | ✓ | ✓
+reverse | ✓ | ✗ | ✓
 rsqrt | ✓ | ✓ | ✓
 select | ✓ | ✓ | ✓
 sine | ✓ | ✓ | ✓
