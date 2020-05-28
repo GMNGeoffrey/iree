@@ -23,8 +23,8 @@ cc_library(
     hdrs = ["TypeConversion.h"],
     deps = [
         "//iree/compiler/Dialect/Shape/IR",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Support",
     ],
 )

@@ -27,9 +27,9 @@ cc_library(
     ],
     deps = [
         "//iree/compiler/Dialect/Vulkan/IR",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:SPIRVDialect",
-        "@llvm-project//mlir:Support",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:SPIRVDialect",
+        "@llvm_project//mlir:Support",
     ],
 )

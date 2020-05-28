@@ -30,8 +30,8 @@ iree_lit_test_suite(
     ),
     data = [
         # runtime libraries
-        "@llvm-project//mlir:tools/libvulkan-runtime-wrappers.so",
-        "@llvm-project//mlir/test/mlir-cpu-runner:libmlir_runner_utils.so",
+        "@llvm_project//mlir:tools/libvulkan-runtime-wrappers.so",
+        "@llvm_project//mlir/test/mlir-cpu-runner:libmlir_runner_utils.so",
         ":runtime-support.so",
         # Tests.
         ":test-dot-prod",
@@ -58,11 +58,11 @@ cc_binary(
     deps = [
         "//experimental/ModelBuilder",
         "//experimental/ModelBuilder:ModelRunner",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:AllPassesAndDialects",
-        "@llvm-project//mlir:EDSC",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:SCFTransforms",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:EDSC",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:SCFTransforms",
     ],
 )
 
@@ -76,11 +76,11 @@ cc_binary(
         ":runtime-support.so",
         "//experimental/ModelBuilder",
         "//experimental/ModelBuilder:ModelRunner",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:AllPassesAndDialects",
-        "@llvm-project//mlir:EDSC",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:SCFTransforms",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:EDSC",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:SCFTransforms",
     ],
 )
 
@@ -93,12 +93,12 @@ cc_binary(
     deps = [
         "//experimental/ModelBuilder",
         "//experimental/ModelBuilder:ModelRunner",
-        "@llvm-project//mlir:AllPassesAndDialects",
-        "@llvm-project//mlir:EDSC",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:SCFTransforms",
+        "@llvm_project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:EDSC",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:SCFTransforms",
         # mlir_runner_utils with iostream needed for printMemRef atm
-        "@llvm-project//mlir:mlir_runner_utils",
+        "@llvm_project//mlir:mlir_runner_utils",
     ],
 )
 
@@ -111,11 +111,11 @@ cc_binary(
     deps = [
         "//experimental/ModelBuilder",
         "//experimental/ModelBuilder:ModelRunner",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:AllPassesAndDialects",
-        "@llvm-project//mlir:EDSC",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:SCFTransforms",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:EDSC",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:SCFTransforms",
     ],
 )
 
@@ -129,12 +129,12 @@ cc_binary(
         "//experimental/ModelBuilder",
         "//experimental/ModelBuilder:ModelRunner",
         "//iree/base:initializer",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:AllPassesAndDialects",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:SPIRVDialect",
-        "@llvm-project//mlir:mlir_runner_utils",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:SPIRVDialect",
+        "@llvm_project//mlir:mlir_runner_utils",
     ] + PLATFORM_VULKAN_DEPS + IREE_DRIVER_MODULES,
 )
 
@@ -150,28 +150,28 @@ cc_binary(
         "//experimental/ModelBuilder:VulkanLaunchWrapper",
         "//iree/base:initializer",
         "//iree/compiler/Conversion/LinalgToSPIRV",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:AllPassesAndDialects",
-        "@llvm-project//mlir:ExecutionEngine",
-        "@llvm-project//mlir:ExecutionEngineUtils",
-        "@llvm-project//mlir:GPUToSPIRVTransforms",
-        "@llvm-project//mlir:GPUToVulkanTransforms",
-        "@llvm-project//mlir:GPUTransforms",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:LLVMTransforms",
-        "@llvm-project//mlir:LinalgOps",
-        "@llvm-project//mlir:LinalgToLLVM",
-        "@llvm-project//mlir:LinalgTransforms",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:SPIRVDialect",
-        "@llvm-project//mlir:StandardToSPIRVConversions",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:TargetLLVMIR",
-        "@llvm-project//mlir:TransformUtils",
-        "@llvm-project//mlir:VectorToLLVM",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:ExecutionEngine",
+        "@llvm_project//mlir:ExecutionEngineUtils",
+        "@llvm_project//mlir:GPUToSPIRVTransforms",
+        "@llvm_project//mlir:GPUToVulkanTransforms",
+        "@llvm_project//mlir:GPUTransforms",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:LLVMTransforms",
+        "@llvm_project//mlir:LinalgOps",
+        "@llvm_project//mlir:LinalgToLLVM",
+        "@llvm_project//mlir:LinalgTransforms",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:Pass",
+        "@llvm_project//mlir:SPIRVDialect",
+        "@llvm_project//mlir:StandardToSPIRVConversions",
+        "@llvm_project//mlir:Support",
+        "@llvm_project//mlir:TargetLLVMIR",
+        "@llvm_project//mlir:TransformUtils",
+        "@llvm_project//mlir:VectorToLLVM",
         # mlir_runner_utils with iostream needed for printMemRef atm
-        "@llvm-project//mlir:mlir_runner_utils",
+        "@llvm_project//mlir:mlir_runner_utils",
     ] + PLATFORM_VULKAN_DEPS + IREE_DRIVER_MODULES,
 )
 
@@ -184,7 +184,7 @@ cc_binary(
     deps = [
         "//experimental/ModelBuilder",
         "//experimental/ModelBuilder:ModelRunner",
-        "@llvm-project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:AllPassesAndDialects",
     ],
 )
 
@@ -201,9 +201,9 @@ cc_binary(
         "//experimental/ModelBuilder",
         "//experimental/ModelBuilder:ModelRunner",
         "@com_google_benchmark//:benchmark:benchmark_main",
-        "@llvm-project//mlir:AllPassesAndDialects",
-        "@llvm-project//mlir:EDSC",
-        "@llvm-project//mlir:IR",
+        "@llvm_project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:EDSC",
+        "@llvm_project//mlir:IR",
     ],
 )
 
@@ -218,9 +218,9 @@ cc_binary(
         "//experimental/ModelBuilder",
         "//experimental/ModelBuilder:ModelRunner",
         "@com_google_benchmark//:benchmark:benchmark_main",
-        "@llvm-project//mlir:AllPassesAndDialects",
-        "@llvm-project//mlir:EDSC",
-        "@llvm-project//mlir:IR",
+        "@llvm_project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:EDSC",
+        "@llvm_project//mlir:IR",
     ],
 )
 
@@ -236,9 +236,9 @@ cc_binary(
         "//experimental/ModelBuilder",
         "//experimental/ModelBuilder:ModelRunner",
         "@com_google_benchmark//:benchmark:benchmark_main",
-        "@llvm-project//mlir:AllPassesAndDialects",
-        "@llvm-project//mlir:EDSC",
-        "@llvm-project//mlir:IR",
+        "@llvm_project//mlir:AllPassesAndDialects",
+        "@llvm_project//mlir:EDSC",
+        "@llvm_project//mlir:IR",
     ],
 )
 
@@ -249,6 +249,6 @@ cc_binary(
     linkshared = True,
     linkstatic = False,
     deps = [
-        "@llvm-project//mlir:mlir_c_runner_utils",
+        "@llvm_project//mlir:mlir_c_runner_utils",
     ],
 )

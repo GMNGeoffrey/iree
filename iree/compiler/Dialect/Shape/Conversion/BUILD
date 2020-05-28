@@ -8,11 +8,11 @@ cc_library(
     srcs = ["ConvertShapeToShapex.cpp"],
     deps = [
         "//iree/compiler/Dialect/Shape/IR",
-        "@llvm-project//mlir:Dialect",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Shape",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//mlir:Dialect",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Pass",
+        "@llvm_project//mlir:Shape",
+        "@llvm_project//mlir:Transforms",
     ],
 )
 
@@ -21,6 +21,6 @@ cc_library(
     hdrs = ["Passes.h"],
     deps = [
         ":ConvertShapeToShapex",
-        "@llvm-project//mlir:Pass",
+        "@llvm_project//mlir:Pass",
     ],
 )

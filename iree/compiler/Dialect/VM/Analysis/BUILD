@@ -19,10 +19,10 @@ cc_library(
     deps = [
         "//iree/compiler/Dialect/IREE/IR",
         "//iree/compiler/Dialect/VM/IR",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:Analysis",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Support",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:Analysis",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Pass",
+        "@llvm_project//mlir:Support",
     ],
 )

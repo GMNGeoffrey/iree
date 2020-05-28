@@ -28,9 +28,9 @@ cc_library(
     deps = [
         "//iree/compiler/Dialect/HAL/IR",
         "//iree/compiler/Dialect/IREE/IR",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Transforms",
     ],
 )
 
@@ -44,7 +44,7 @@ cc_library(
     ],
     deps = [
         "//iree/compiler/Dialect/IREE/IR",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Transforms",
     ],
 )

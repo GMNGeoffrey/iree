@@ -30,9 +30,9 @@ cc_library(
         "MarkerUtils.h",
     ],
     deps = [
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:LinalgTransforms",
-        "@llvm-project//mlir:Support",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:LinalgTransforms",
+        "@llvm_project//mlir:Support",
     ],
 )

@@ -46,10 +46,10 @@ moderately generic, they can and do break and require manual intervention at
 times (i.e. there is no guarantee that updating to a new commit of either will
 not require some manual work on the build files).
 
-The only combination which is expected to work is the llvm-project commit noted
+The only combination which is expected to work is the llvm_project commit noted
 in the `LLVM_COMMIT` setting in
 `third_party/tensorflow/tensorflow/workspace.bzl`. In reality, it is often
-possible (especially with the CMake build) to use a newer llvm-project commit,
+possible (especially with the CMake build) to use a newer llvm_project commit,
 and private development forks should feel free to do this. However, to submit
 upstream, we will need to integrate this newer commit in the internal Google
 source of truth prior to accepting code that depends on it.
@@ -77,7 +77,7 @@ the repository root. Here is an example:
 97f3aa91746a7d207513a73725e92cee7c35bb87 third_party/flatbuffers
 3d62e9545bd15c5df9ccfdd8453b93d64a6dd8eb third_party/ruy
 f2fb48c3b3d79a75a88a99fba6576b25d42ec528 third_party/googletest
-a21beccea2020f950845cbb68db663d0737e174c third_party/llvm-project
+a21beccea2020f950845cbb68db663d0737e174c third_party/llvm_project
 80d452484c5409444b0ec19383faa84bb7a4d351 third_party/pybind11
 b73f111094da3e380a1774b56b15f16c90ae8e23 third_party/sdl2
 b252a50953ac4375cb1864e94f4b0234db9d215d third_party/spirv_headers
@@ -132,7 +132,7 @@ TODO(laurenzo): Add a GitHub hook to auto-commit submodule updates on
 
 ```shell
 # By default, updates third_party/tensorflow to the remote head and
-# third_party/llvm-project to the commit that tensorflow references.
+# third_party/llvm_project to the commit that tensorflow references.
 # Also updates the IREE mirrors of key build files. All changes will
 # be staged for commit.
 ./scripts/git/update_tf_llvm_submodules.py

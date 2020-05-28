@@ -51,12 +51,12 @@ cc_library(
         ":FlowOpInterfaceGen",
         ":FlowOpsGen",
         "//iree/compiler/Dialect/IREE/IR",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:SideEffects",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:TransformUtils",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:SideEffects",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Support",
+        "@llvm_project//mlir:TransformUtils",
     ],
 )
 
@@ -66,12 +66,12 @@ gentbl(
         ("-gen-enum-decls", "FlowEnums.h.inc"),
         ("-gen-enum-defs", "FlowEnums.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "FlowBase.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
     ],
 )
 
@@ -81,12 +81,12 @@ gentbl(
         ("-gen-op-interface-decls", "FlowOpInterface.h.inc"),
         ("-gen-op-interface-defs", "FlowOpInterface.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "FlowBase.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:StdOpsTdFiles",
+        "@llvm_project//mlir:StdOpsTdFiles",
     ],
 )
 
@@ -96,14 +96,14 @@ gentbl(
         ("-gen-op-decls", "FlowOps.h.inc"),
         ("-gen-op-defs", "FlowOps.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "FlowOps.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:include/mlir/IR/SymbolInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:include/mlir/IR/SymbolInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
     ],
 )
 
@@ -112,13 +112,13 @@ iree_tablegen_doc(
     tbl_outs = [
         ("-gen-dialect-doc", "FlowDialect.md"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "FlowOps.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:include/mlir/IR/SymbolInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:include/mlir/IR/SymbolInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
     ],
 )

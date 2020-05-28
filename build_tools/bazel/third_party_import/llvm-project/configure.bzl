@@ -62,7 +62,7 @@ def _llvm_configure_impl(repository_ctx):
     ).dirname
     overlay_path = _join_path(
         this_workspace_path,
-        "build_tools/bazel/third_party_import/llvm-project/overlay",
+        "build_tools/bazel/third_party_import/llvm_project/overlay",
     )
 
     # Each parent path of an overlay file must have its children manually

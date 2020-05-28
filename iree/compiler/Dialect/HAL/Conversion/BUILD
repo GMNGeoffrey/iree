@@ -33,9 +33,9 @@ cc_library(
         "//iree/compiler/Dialect/HAL/IR:HALDialect",
         "//iree/compiler/Dialect/HAL/Utils",
         "//iree/compiler/Dialect/IREE/IR",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Transforms",
     ],
 )
 
@@ -47,6 +47,6 @@ cc_library(
     deps = [
         "//iree/compiler/Dialect/HAL/Conversion/FlowToHAL",
         "//iree/compiler/Dialect/HAL/Conversion/HALToVM",
-        "@llvm-project//mlir:Pass",
+        "@llvm_project//mlir:Pass",
     ],
 )

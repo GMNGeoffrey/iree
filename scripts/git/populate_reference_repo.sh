@@ -72,7 +72,7 @@ populate_repo iree https://github.com/google/iree.git
 populate_repo tf https://github.com/tensorflow/tensorflow.git
 populate_repo gtest https://github.com/google/googletest.git
 populate_repo absl https://github.com/abseil/abseil-cpp.git
-populate_repo llvm https://github.com/llvm/llvm-project.git
+populate_repo llvm https://github.com/llvm/llvm_project.git
 populate_repo mlir https://github.com/tensorflow/mlir.git
 populate_repo flatbuffers https://github.com/google/flatbuffers.git
 populate_repo vk https://github.com/KhronosGroup/Vulkan-Headers.git

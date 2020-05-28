@@ -92,7 +92,7 @@ if(${IREE_ENABLE_LLVM})
     NAME
       iree-tblgen
     SRCS
-      "${IREE_ROOT_DIR}/third_party/llvm-project/mlir/tools/mlir-tblgen/mlir-tblgen.cpp"
+      "${IREE_ROOT_DIR}/third_party/llvm_project/mlir/tools/mlir-tblgen/mlir-tblgen.cpp"
     DEPS
       MLIRSupport
       MLIRTableGen

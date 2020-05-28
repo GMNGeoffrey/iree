@@ -53,13 +53,13 @@ cc_library(
         ":HALStructsGen",
         ":HALTypesGen",
         "//iree/compiler/Dialect/IREE/IR",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:SideEffects",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:TransformUtils",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:SideEffects",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Support",
+        "@llvm_project//mlir:TransformUtils",
     ],
 )
 
@@ -72,11 +72,11 @@ cc_library(
         "//iree/compiler/Dialect/HAL:hal_imports",
         "//iree/compiler/Dialect/HAL/Conversion/HALToVM",
         "//iree/compiler/Dialect/VM/Conversion",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:TransformUtils",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:TransformUtils",
     ],
 )
 
@@ -86,14 +86,14 @@ gentbl(
         ("-gen-op-decls", "HALOps.h.inc"),
         ("-gen-op-defs", "HALOps.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "HALOps.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:include/mlir/IR/SymbolInterfaces.td",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:StdOpsTdFiles",
+        "@llvm_project//mlir:include/mlir/IR/SymbolInterfaces.td",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:StdOpsTdFiles",
     ],
 )
 
@@ -108,7 +108,7 @@ gentbl(
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
     ],
 )
 
@@ -120,13 +120,13 @@ gentbl(
         ("-gen-op-interface-decls", "HALOpInterface.h.inc"),
         ("-gen-op-interface-defs", "HALOpInterface.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "HALBase.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:StdOpsTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:StdOpsTdFiles",
     ],
 )
 
@@ -135,12 +135,12 @@ iree_tablegen_doc(
     tbl_outs = [
         ("-gen-dialect-doc", "HALDialect.md"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "HALOps.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:include/mlir/IR/SymbolInterfaces.td",
-        "@llvm-project//mlir:StdOpsTdFiles",
+        "@llvm_project//mlir:include/mlir/IR/SymbolInterfaces.td",
+        "@llvm_project//mlir:StdOpsTdFiles",
     ],
 )

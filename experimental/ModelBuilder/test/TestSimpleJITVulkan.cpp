@@ -17,7 +17,7 @@
 // NOLINTNEXTLINE
 // TODO(thomasraoux): Set the right path to vulkan wrapper shared library. The
 // test won't run until this is done.
-// RUN: test-simple-jit-vulkan -vulkan-wrapper=$(dirname %s)/../../../../llvm/llvm-project/mlir/tools/libvulkan-runtime-wrappers.so 2>&1 | IreeFileCheck %s
+// RUN: test-simple-jit-vulkan -vulkan-wrapper=$(dirname %s)/../../../../llvm/llvm_project/mlir/tools/libvulkan-runtime-wrappers.so 2>&1 | IreeFileCheck %s
 
 // clang-format on
 

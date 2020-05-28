@@ -18,7 +18,7 @@ load("@com_github_google_flatbuffers//:build_defs.bzl", "flatbuffer_cc_library")
 load("@rules_cc//cc:defs.bzl", _cc_binary = "cc_binary", _cc_library = "cc_library")
 
 # Target to the FileCheck binary.
-INTREE_FILECHECK_TARGET = "@llvm-project//llvm:FileCheck"
+INTREE_FILECHECK_TARGET = "@llvm_project//llvm:FileCheck"
 
 def platform_trampoline_deps(basename, path = "base"):
     """Produce a list of deps for the given `basename` platform target.

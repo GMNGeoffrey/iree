@@ -30,11 +30,11 @@ gentbl(
         ("-gen-op-decls", "ops.h.inc"),
         ("-gen-op-defs", "ops.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "ops.td",
     td_srcs = [
         ":td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
     ],
 )
 
@@ -44,11 +44,11 @@ gentbl(
         ("-gen-op-interface-decls", "op_interface.h.inc"),
         ("-gen-op-interface-defs", "op_interface.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "base.td",
     td_srcs = [
         ":td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
     ],
 )
 
@@ -73,8 +73,8 @@ cc_library(
         ":ops_gen",
         "//integrations/tensorflow/compiler/dialect/tf_strings/conversion:convert_flow_to_hal",
         "//integrations/tensorflow/compiler/dialect/tf_strings/ir:ops",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
     ],
     alwayslink = 1,
 )
@@ -93,8 +93,8 @@ cc_library(
     deps = [
         ":op_interface_gen",
         ":ops_gen",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
     ],
     alwayslink = 1,
 )

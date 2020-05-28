@@ -27,6 +27,6 @@ iree_lit_test_suite(
     data = [
         "//iree/tools:IreeFileCheck",
         "//iree/tools:iree-opt",
-        "@llvm-project//mlir:mlir-translate",
+        "@llvm_project//mlir:mlir-translate",
     ],
 )

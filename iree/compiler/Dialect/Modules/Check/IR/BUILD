@@ -38,8 +38,8 @@ cc_library(
     deps = [
         ":check_ops_gen",
         "//iree/compiler/Dialect/HAL/IR",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:StandardOps",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:StandardOps",
     ],
 )
 
@@ -58,9 +58,9 @@ cc_library(
         "//iree/compiler/Dialect/Modules/Check:check_imports",
         "//iree/compiler/Dialect/Modules/Check/Conversion",
         "//iree/compiler/Dialect/VM/Conversion",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:Transforms",
     ],
 )
 
@@ -70,11 +70,11 @@ gentbl(
         ("-gen-op-decls", "CheckOps.h.inc"),
         ("-gen-op-defs", "CheckOps.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "CheckOps.td",
     td_srcs = [
         ":td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
         "//iree/compiler/Dialect/HAL/IR:td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
     ],
@@ -85,11 +85,11 @@ iree_tablegen_doc(
     tbl_outs = [
         ("-gen-dialect-doc", "CheckDialect.md"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "CheckOps.td",
     td_srcs = [
         ":td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
         "//iree/compiler/Dialect/HAL/IR:td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
     ],

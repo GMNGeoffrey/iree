@@ -32,8 +32,8 @@ cc_library(
         "//iree/compiler/Dialect/Shape/IR",
         "//iree/compiler/Dialect/VMLA/IR",
         "//iree/compiler/Dialect/VMLA/IR:VMLADialect",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Transforms",
     ],
 )

@@ -25,46 +25,46 @@ EXPLICIT_TARGET_MAPPING = {
         "dear_imgui::impl_sdl", "dear_imgui::impl_vulkan"
     ],
     # LLVM
-    "@llvm-project//llvm:asm_parser": ["LLVMAsmParser"],
-    "@llvm-project//llvm:core": ["LLVMCore"],
-    "@llvm-project//llvm:execution_engine": ["LLVMExecutionEngine"],
-    "@llvm-project//llvm:passes": ["LLVMPasses"],
-    "@llvm-project//llvm:target": ["LLVMTarget"],
-    "@llvm-project//llvm:support": ["LLVMSupport"],
-    "@llvm-project//llvm:orc_jit": ["LLVMOrcJIT"],
-    "@llvm-project//llvm:tablegen": ["LLVMTableGen"],
-    "@llvm-project//llvm:x86_code_gen": ["LLVMX86CodeGen"],
+    "@llvm_project//llvm:asm_parser": ["LLVMAsmParser"],
+    "@llvm_project//llvm:core": ["LLVMCore"],
+    "@llvm_project//llvm:execution_engine": ["LLVMExecutionEngine"],
+    "@llvm_project//llvm:passes": ["LLVMPasses"],
+    "@llvm_project//llvm:target": ["LLVMTarget"],
+    "@llvm_project//llvm:support": ["LLVMSupport"],
+    "@llvm_project//llvm:orc_jit": ["LLVMOrcJIT"],
+    "@llvm_project//llvm:tablegen": ["LLVMTableGen"],
+    "@llvm_project//llvm:x86_code_gen": ["LLVMX86CodeGen"],
     # MLIR
-    "@llvm-project//mlir:AllPassesAndDialects": ["MLIRAllDialects"],
-    "@llvm-project//mlir:AllPassesAndDialectsNoRegistration": [
+    "@llvm_project//mlir:AllPassesAndDialects": ["MLIRAllDialects"],
+    "@llvm_project//mlir:AllPassesAndDialectsNoRegistration": [
         "MLIRAllDialects"
     ],
-    "@llvm-project//mlir:Affine": ["MLIRAffineOps"],
-    "@llvm-project//mlir:AffineToStandardTransforms": ["MLIRAffineToStandard"],
-    "@llvm-project//mlir:CFGTransforms": ["MLIRSCFToStandard"],
-    "@llvm-project//mlir:ExecutionEngineUtils": ["MLIRExecutionEngine"],
-    "@llvm-project//mlir:GPUDialect": ["MLIRGPU"],
-    "@llvm-project//mlir:GPUToSPIRVTransforms": ["MLIRGPUtoSPIRVTransforms"],
-    "@llvm-project//mlir:GPUTransforms": ["MLIRGPU"],
-    "@llvm-project//mlir:LLVMTransforms": ["MLIRStandardToLLVM"],
-    "@llvm-project//mlir:SCFToGPUPass": ["MLIRSCFToGPU"],
-    "@llvm-project//mlir:SCFDialect": ["MLIRSCF"],
-    "@llvm-project//mlir:SCFTransforms": ["MLIRSCFTransforms"],
-    "@llvm-project//mlir:SideEffects": ["MLIRSideEffectInterfaces"],
-    "@llvm-project//mlir:SPIRVDialect": ["MLIRSPIRV"],
-    "@llvm-project//mlir:SPIRVLowering": ["MLIRSPIRV", "MLIRSPIRVTransforms"],
-    "@llvm-project//mlir:SPIRVTranslateRegistration": [
+    "@llvm_project//mlir:Affine": ["MLIRAffineOps"],
+    "@llvm_project//mlir:AffineToStandardTransforms": ["MLIRAffineToStandard"],
+    "@llvm_project//mlir:CFGTransforms": ["MLIRSCFToStandard"],
+    "@llvm_project//mlir:ExecutionEngineUtils": ["MLIRExecutionEngine"],
+    "@llvm_project//mlir:GPUDialect": ["MLIRGPU"],
+    "@llvm_project//mlir:GPUToSPIRVTransforms": ["MLIRGPUtoSPIRVTransforms"],
+    "@llvm_project//mlir:GPUTransforms": ["MLIRGPU"],
+    "@llvm_project//mlir:LLVMTransforms": ["MLIRStandardToLLVM"],
+    "@llvm_project//mlir:SCFToGPUPass": ["MLIRSCFToGPU"],
+    "@llvm_project//mlir:SCFDialect": ["MLIRSCF"],
+    "@llvm_project//mlir:SCFTransforms": ["MLIRSCFTransforms"],
+    "@llvm_project//mlir:SideEffects": ["MLIRSideEffectInterfaces"],
+    "@llvm_project//mlir:SPIRVDialect": ["MLIRSPIRV"],
+    "@llvm_project//mlir:SPIRVLowering": ["MLIRSPIRV", "MLIRSPIRVTransforms"],
+    "@llvm_project//mlir:SPIRVTranslateRegistration": [
         "MLIRSPIRVSerialization"
     ],
-    "@llvm-project//mlir:StandardToSPIRVConversions": [
+    "@llvm_project//mlir:StandardToSPIRVConversions": [
         "MLIRStandardToSPIRVTransforms"
     ],
-    "@llvm-project//mlir:TableGen": ["MLIRTableGen"],
-    "@llvm-project//mlir:mlir_c_runner_utils": ["MLIRExecutionEngine"],
-    "@llvm-project//mlir:mlir-translate": ["mlir-translate"],
-    "@llvm-project//mlir:MlirTableGenMain": ["MLIRTableGen"],
-    "@llvm-project//mlir:MlirOptLib": ["MLIROptLib"],
-    "@llvm-project//mlir:VectorOps": ["MLIRVector"],
+    "@llvm_project//mlir:TableGen": ["MLIRTableGen"],
+    "@llvm_project//mlir:mlir_c_runner_utils": ["MLIRExecutionEngine"],
+    "@llvm_project//mlir:mlir-translate": ["mlir-translate"],
+    "@llvm_project//mlir:MlirTableGenMain": ["MLIRTableGen"],
+    "@llvm_project//mlir:MlirOptLib": ["MLIROptLib"],
+    "@llvm_project//mlir:VectorOps": ["MLIRVector"],
     # Vulkan
     # TODO(scotttodd): Set -DVK_NO_PROTOTYPES to COPTS for _no_prototypes.
     #   Maybe add a wrapper CMake lib within build_tools/third_party/?
@@ -97,8 +97,8 @@ def _convert_absl_target(target):
 def _convert_mlir_target(target):
   # Default to a pattern substitution approach.
   # Take "MLIR" and append the name part of the full target identifier, e.g.
-  #   "@llvm-project//mlir:IR"   -> "MLIRIR"
-  #   "@llvm-project//mlir:Pass" -> "MLIRPass"
+  #   "@llvm_project//mlir:IR"   -> "MLIRIR"
+  #   "@llvm_project//mlir:Pass" -> "MLIRPass"
   return ["MLIR" + target.rsplit(":")[-1]]
 
 
@@ -122,7 +122,7 @@ def convert_external_target(target):
     return EXPLICIT_TARGET_MAPPING[target]
   if target.startswith("@com_google_absl//absl"):
     return _convert_absl_target(target)
-  if target.startswith("@llvm-project//mlir"):
+  if target.startswith("@llvm_project//mlir"):
     return _convert_mlir_target(target)
   if target.startswith("@org_tensorflow//tensorflow/compiler/mlir"):
     # All Bazel targets map to a single CMake target.

@@ -65,7 +65,7 @@ translations, and other transformations step by step.
 ### iree-opt
 
 `iree-opt` is a tool for testing IREE's compiler passes. It is similar to
-[mlir-opt](https://github.com/llvm/llvm-project/tree/master/mlir/tools/mlir-opt)
+[mlir-opt](https://github.com/llvm/llvm_project/tree/master/mlir/tools/mlir-opt)
 and runs sets of IREE's compiler passes on `.mlir` input files. See "conversion"
 in [MLIR's Glossary](https://mlir.llvm.org/getting_started/Glossary/#conversion)
 for more information.
@@ -96,7 +96,7 @@ for a sample.
 
 `iree-translate` converts MLIR input into external formats like IREE modules. It
 is similar to
-[mlir-translate](https://github.com/llvm/llvm-project/tree/master/mlir/tools/mlir-translate),
+[mlir-translate](https://github.com/llvm/llvm_project/tree/master/mlir/tools/mlir-translate),
 see "translation" in
 [MLIR's Glossary](https://mlir.llvm.org/getting_started/Glossary/#translation)
 for more information.

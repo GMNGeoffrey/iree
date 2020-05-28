@@ -55,14 +55,14 @@ cc_library(
         ":VMOpInterfaceGen",
         ":VMOpsGen",
         "//iree/compiler/Dialect/IREE/IR",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:ControlFlowInterfaces",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:SideEffects",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:TransformUtils",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:ControlFlowInterfaces",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:SideEffects",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Support",
+        "@llvm_project//mlir:TransformUtils",
     ],
 )
 
@@ -72,13 +72,13 @@ gentbl(
         ("-gen-enum-decls", "VMEnums.h.inc"),
         ("-gen-enum-defs", "VMEnums.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VMBase.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:include/mlir/IR/SymbolInterfaces.td",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:include/mlir/IR/SymbolInterfaces.td",
     ],
 )
 
@@ -88,16 +88,16 @@ gentbl(
         ("-gen-op-decls", "VMOps.h.inc"),
         ("-gen-op-defs", "VMOps.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VMOps.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:include/mlir/IR/SymbolInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/CallInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/ControlFlowInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:include/mlir/IR/SymbolInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/CallInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/ControlFlowInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
     ],
 )
 
@@ -111,11 +111,11 @@ gentbl(
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:include/mlir/IR/SymbolInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/CallInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/ControlFlowInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:include/mlir/IR/SymbolInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/CallInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/ControlFlowInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
     ],
 )
 
@@ -125,12 +125,12 @@ gentbl(
         ("-gen-op-interface-decls", "VMOpInterface.h.inc"),
         ("-gen-op-interface-defs", "VMOpInterface.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VMBase.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
     ],
 )
 
@@ -139,15 +139,15 @@ iree_tablegen_doc(
     tbl_outs = [
         ("-gen-dialect-doc", "VMDialect.md"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VMOps.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:include/mlir/IR/SymbolInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/CallInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/ControlFlowInterfaces.td",
-        "@llvm-project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:include/mlir/IR/SymbolInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/CallInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/ControlFlowInterfaces.td",
+        "@llvm_project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
     ],
 )

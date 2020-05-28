@@ -53,13 +53,13 @@ cc_library(
         "//iree/compiler/Dialect/IREE/IR",
         "//iree/compiler/Dialect/Shape/IR",
         "//iree/compiler/Dialect/VM/IR",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:SideEffects",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:TransformUtils",
-        "@llvm-project//mlir:Translation",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:SideEffects",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Support",
+        "@llvm_project//mlir:TransformUtils",
+        "@llvm_project//mlir:Translation",
     ],
 )
 
@@ -72,12 +72,12 @@ cc_library(
         "//iree/compiler/Dialect/VM/Conversion",
         "//iree/compiler/Dialect/VMLA:vmla_imports",
         "//iree/compiler/Dialect/VMLA/Conversion/VMLAToVM",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:TransformUtils",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Support",
+        "@llvm_project//mlir:TransformUtils",
     ],
 )
 
@@ -87,14 +87,14 @@ gentbl(
         ("-gen-enum-decls", "VMLAEnums.h.inc"),
         ("-gen-enum-defs", "VMLAEnums.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VMLABase.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
         "//iree/compiler/Dialect/Shape/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:StdOpsTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:StdOpsTdFiles",
     ],
 )
 
@@ -104,14 +104,14 @@ gentbl(
         ("-gen-op-decls", "VMLAOps.h.inc"),
         ("-gen-op-defs", "VMLAOps.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VMLAOps.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
         "//iree/compiler/Dialect/Shape/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:StdOpsTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:StdOpsTdFiles",
     ],
 )
 
@@ -121,13 +121,13 @@ gentbl(
         ("-gen-op-interface-decls", "VMLAOpInterface.h.inc"),
         ("-gen-op-interface-defs", "VMLAOpInterface.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VMLABase.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
         "//iree/compiler/Dialect/Shape/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
     ],
 )
 
@@ -136,13 +136,13 @@ iree_tablegen_doc(
     tbl_outs = [
         ("-gen-dialect-doc", "VMLADialect.md"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VMLAOps.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
         "//iree/compiler/Dialect/Shape/IR:td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:StdOpsTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:StdOpsTdFiles",
     ],
 )

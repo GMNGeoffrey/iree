@@ -17,9 +17,9 @@
 # pylint: disable=missing-docstring
 """update_tf_llvm_submodules.
 
-Updates the third_party/tensorflow and third_party/llvm-project submodules
+Updates the third_party/tensorflow and third_party/llvm_project submodules
 to new commits. We have special conditions around these submodules since
-upstream will only accept an llvm-project version that is sync'd with the
+upstream will only accept an llvm_project version that is sync'd with the
 corresponding version that tensorflow depends on. In addition, some BUILD
 files must be sync'd for the new version.
 
@@ -27,7 +27,7 @@ Typical usage:
   Syntax: ./scripts/git/update_tf_llvm_submodules.py
 
   By default, this will update the tensorflow submodule to remote HEAD and
-  update the llvm-project submodule to the corresponding version. It will
+  update the llvm_project submodule to the corresponding version. It will
   also sync BUILD file changes as needed and export the version metadata.
 """
 
@@ -51,7 +51,7 @@ def parse_arguments():
   parser.add_argument(
       "--llvm",
       help="Path to the LLVM sources "
-      "(defaults to third_party/llvm-project)",
+      "(defaults to third_party/llvm_project)",
       default=None)
   parser.add_argument(
       "--tensorflow_commit",
@@ -77,7 +77,7 @@ def parse_arguments():
   if not args.tensorflow:
     args.tensorflow = os.path.join(args.repo, "third_party", "tensorflow")
   if not args.llvm:
-    args.llvm = os.path.join(args.repo, "third_party", "llvm-project")
+    args.llvm = os.path.join(args.repo, "third_party", "llvm_project")
   return args
 
 
@@ -114,7 +114,7 @@ def main(args):
   else:
     print("\n*** Updating LLVM to", args.llvm_commit, "***")
     update_submodule(args.llvm, args.llvm_commit)
-    stage_path(args.repo, "third_party/llvm-project")
+    stage_path(args.repo, "third_party/llvm_project")
 
   # Update build files.
   if not args.update_build_files:
@@ -173,7 +173,7 @@ def update_build_files_from_tensorflow(repo_path, tensorflow_path):
   src_mlir_test_build = os.path.join(tensorflow_path, "third_party", "mlir",
                                      "test.BUILD")
   overlay_path = os.path.join(repo_path, "build_tools", "bazel",
-                              "third_party_import", "llvm-project", "overlay")
+                              "third_party_import", "llvm_project", "overlay")
   copy_text_file(repo_path, src_llvm_build,
                  os.path.join(overlay_path, "llvm", "BUILD.bazel"))
   copy_text_file(repo_path, src_mlir_build,

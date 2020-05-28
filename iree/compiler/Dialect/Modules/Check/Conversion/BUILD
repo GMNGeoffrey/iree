@@ -29,7 +29,7 @@ cc_library(
         "//iree/compiler/Dialect/HAL/Conversion",
         "//iree/compiler/Dialect/Modules/Check/IR",
         "//iree/compiler/Dialect/VM/Conversion",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//mlir:Pass",
+        "@llvm_project//mlir:Transforms",
     ],
 )

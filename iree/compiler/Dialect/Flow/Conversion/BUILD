@@ -27,8 +27,8 @@ cc_library(
     ],
     deps = [
         "//iree/compiler/Dialect/IREE/IR",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:Transforms",
     ],
 )

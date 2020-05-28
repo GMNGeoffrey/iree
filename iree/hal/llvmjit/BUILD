@@ -31,10 +31,10 @@ cc_library(
         "//iree/schemas:llvmir_executable_def_cc_fbs",
         "@com_github_google_flatbuffers//:flatbuffers",
         "@com_google_absl//absl/types:span",
-        "@llvm-project//llvm:asm_parser",
-        "@llvm-project//llvm:core",
-        "@llvm-project//llvm:orc_jit",
-        "@llvm-project//llvm:support",
+        "@llvm_project//llvm:asm_parser",
+        "@llvm_project//llvm:core",
+        "@llvm_project//llvm:orc_jit",
+        "@llvm_project//llvm:support",
     ],
 )
 
@@ -64,7 +64,7 @@ cc_library(
         "//iree/hal:executable",
         "//iree/hal:executable_cache",
         "//iree/hal:executable_format",
-        "@llvm-project//llvm:orc_jit",
+        "@llvm_project//llvm:orc_jit",
     ],
 )
 
@@ -104,7 +104,7 @@ cc_library(
         ":llvmjit_device",
         "//iree/hal:device_info",
         "//iree/hal:driver",
-        "@llvm-project//llvm:execution_engine",
+        "@llvm_project//llvm:execution_engine",
     ],
 )
 
@@ -116,9 +116,9 @@ cc_library(
         "//iree/base:init",
         "//iree/base:status",
         "//iree/hal:driver_registry",
-        "@llvm-project//llvm:support",
+        "@llvm_project//llvm:support",
         #TODO(ataei): Link with native target dep.
-        "@llvm-project//llvm:x86_code_gen",
+        "@llvm_project//llvm:x86_code_gen",
     ],
     alwayslink = 1,
 )

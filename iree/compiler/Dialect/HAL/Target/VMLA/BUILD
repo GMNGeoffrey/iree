@@ -34,9 +34,9 @@ cc_library(
         "//iree/compiler/Dialect/VMLA/Transforms",
         "//iree/schemas:vmla_executable_def_cc_fbs",
         "@com_github_google_flatbuffers//:flatbuffers",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Support",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Pass",
+        "@llvm_project//mlir:Support",
     ],
 )

@@ -41,13 +41,13 @@ cc_library(
         "//iree/compiler/Dialect/HAL/IR",
         "//iree/compiler/Dialect/IREE/IR",
         "//iree/compiler/Dialect/VM/Conversion",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:SideEffects",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:Pass",
+        "@llvm_project//mlir:SideEffects",
+        "@llvm_project//mlir:Support",
+        "@llvm_project//mlir:Transforms",
     ],
 )
 
@@ -66,12 +66,12 @@ cc_library(
         "//iree/compiler/Dialect/Modules/Strings:strings_imports",
         "//iree/compiler/Dialect/Modules/Strings/Conversion",
         "//iree/compiler/Dialect/VM/Conversion",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:Transforms",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:Pass",
+        "@llvm_project//mlir:Support",
+        "@llvm_project//mlir:Transforms",
     ],
 )
 
@@ -81,13 +81,13 @@ gentbl(
         ("-gen-op-decls", "Ops.h.inc"),
         ("-gen-op-defs", "Ops.cc.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "Ops.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/HAL/IR:td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:StdOpsTdFiles",
+        "@llvm_project//mlir:StdOpsTdFiles",
     ],
 )
 
@@ -96,12 +96,12 @@ iree_tablegen_doc(
     tbl_outs = [
         ("-gen-dialect-doc", "StringsDialect.md"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "Ops.td",
     td_srcs = [
         ":td_files",
         "//iree/compiler/Dialect/HAL/IR:td_files",
         "//iree/compiler/Dialect/IREE/IR:td_files",
-        "@llvm-project//mlir:StdOpsTdFiles",
+        "@llvm_project//mlir:StdOpsTdFiles",
     ],
 )

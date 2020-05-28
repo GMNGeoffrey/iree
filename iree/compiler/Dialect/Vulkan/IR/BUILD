@@ -44,9 +44,9 @@ cc_library(
         ":VulkanAttrsGen",
         ":VulkanEnumsGen",
         "//iree/compiler/Dialect/IREE/IR",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Support",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Support",
     ],
 )
 
@@ -56,11 +56,11 @@ gentbl(
         ("-gen-struct-attr-decls", "VulkanAttributes.h.inc"),
         ("-gen-struct-attr-defs", "VulkanAttributes.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VulkanAttributes.td",
     td_srcs = [
         ":td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
     ],
 )
 
@@ -70,10 +70,10 @@ gentbl(
         ("-gen-enum-decls", "VulkanEnums.h.inc"),
         ("-gen-enum-defs", "VulkanEnums.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "VulkanBase.td",
     td_srcs = [
         ":td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:OpBaseTdFiles",
     ],
 )

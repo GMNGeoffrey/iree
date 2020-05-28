@@ -15,7 +15,7 @@
 // clang-format off
 
 // NOLINTNEXTLINE
-// RUN: test-matmul-vulkan -vulkan-wrapper=$(dirname %s)/../../../../llvm/llvm-project/mlir/tools/libvulkan-runtime-wrappers.so 2>&1 | IreeFileCheck %s
+// RUN: test-matmul-vulkan -vulkan-wrapper=$(dirname %s)/../../../../llvm/llvm_project/mlir/tools/libvulkan-runtime-wrappers.so 2>&1 | IreeFileCheck %s
 
 // clang-format on
 #include <string>

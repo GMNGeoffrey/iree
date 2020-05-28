@@ -45,12 +45,12 @@ cc_library(
     ],
     deps = [
         ":IREEOpsGen",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Parser",
-        "@llvm-project//mlir:SideEffects",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Support",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
+        "@llvm_project//mlir:Parser",
+        "@llvm_project//mlir:SideEffects",
+        "@llvm_project//mlir:StandardOps",
+        "@llvm_project//mlir:Support",
     ],
 )
 
@@ -60,12 +60,12 @@ gentbl(
         ("-gen-op-decls", "IREEOps.h.inc"),
         ("-gen-op-defs", "IREEOps.cpp.inc"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "IREEOps.td",
     td_srcs = [
         ":td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
     ],
 )
 
@@ -74,11 +74,11 @@ iree_tablegen_doc(
     tbl_outs = [
         ("-gen-dialect-doc", "IREEDialect.md"),
     ],
-    tblgen = "@llvm-project//mlir:mlir-tblgen",
+    tblgen = "@llvm_project//mlir:mlir-tblgen",
     td_file = "IREEOps.td",
     td_srcs = [
         ":td_files",
-        "@llvm-project//mlir:OpBaseTdFiles",
-        "@llvm-project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
+        "@llvm_project//mlir:OpBaseTdFiles",
+        "@llvm_project//mlir:include/mlir/Interfaces/SideEffectInterfaces.td",
     ],
 )

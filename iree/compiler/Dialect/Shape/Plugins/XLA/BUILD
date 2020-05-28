@@ -27,8 +27,8 @@ cc_library(
     ],
     deps = [
         "//iree/compiler/Dialect/Shape/IR",
-        "@llvm-project//llvm:support",
-        "@llvm-project//mlir:IR",
+        "@llvm_project//llvm:support",
+        "@llvm_project//mlir:IR",
         "@org_tensorflow//tensorflow/compiler/mlir/xla:hlo",
     ],
 )
