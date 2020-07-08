@@ -70,14 +70,14 @@ information should be hidden from the compiler and resolved at runtime.
 
 ```mlir
 %c = iree.dynamic_shape_constant tensor<2x2xf32> -> tensor<?x?xf32>
-%res = "xla_hlo.abs"(%c) : (tensor<?x?xf32>) -> tensor<?x?xf32>
+%res = "mhlo.abs"(%c) : (tensor<?x?xf32>) -> tensor<?x?xf32>
 ```
 
 #### Attributes:
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`value` | ElementsAttr | constant vector/tensor attribute
+`value` | ::mlir::ElementsAttr | constant vector/tensor attribute
 
 #### Results:
 
@@ -106,7 +106,7 @@ argument due to ABI or contract issues.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`purpose` | StringAttr | string attribute
+`purpose` | ::mlir::StringAttr | string attribute
 
 #### Results:
 
@@ -126,7 +126,7 @@ std.constant wrapped in an iree.do_not_optimize.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`value` | Attribute | any attribute
+`value` | ::mlir::Attribute | any attribute
 
 #### Results:
 
@@ -151,7 +151,7 @@ stripped during translation.
 
 ```mlir
 ^bb0:
-  %true = constant 1 : i1
+  %true = constant true
   cond_br %true, ^bb2, ^bb1
 ^bb1:
   // Indicates that this branch should never be taken.

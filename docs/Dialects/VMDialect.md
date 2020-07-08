@@ -195,8 +195,8 @@ attribute.
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
 `callee` | FlatSymbolRefAttr | symbol reference attribute
-`segment_sizes` | DenseIntElementsAttr | 16-bit signless integer elements attribute
-`segment_types` | ArrayAttr | type array attribute
+`segment_sizes` | ::mlir::DenseIntElementsAttr | 16-bit signless integer elements attribute
+`segment_types` | ::mlir::ArrayAttr | type array attribute
 
 #### Operands:
 
@@ -209,6 +209,119 @@ attribute.
 | Result | Description |
 | :----: | ----------- |
 `results` | 32-bit signless integer or 32-bit signless integer or ref
+
+### `vm.check.eq` (IREE::VM::CheckEQOp)
+
+raises a global failure if the condition is true
+
+Syntax:
+
+```
+operation ::= `vm.check.eq` $lhs `,` $rhs (`,` $message^)? attr-dict `:` type($lhs)
+```
+
+
+When the condition is true this signals a runtime failure that causes the
+entire active invocation - and possibly *all* in-flight and pending
+invocations - to fail. The status will be propagated back via the available
+runtime error handling mechanisms such as semaphores or synchronous
+invocation results.
+
+This is implemented as a pseudo-op that transforms into a vm.cond_fail
+operation.
+
+```
+vm.check.eq %a, %b, "a == b" : i32
+vm.check.nz %ref, "!null" : !vm.ref<?>
+```
+
+#### Attributes:
+
+| Attribute | MLIR Type | Description |
+| :-------: | :-------: | ----------- |
+`message` | ::mlir::StringAttr | string attribute
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`lhs` | 32-bit signless integer or 32-bit signless integer or ref
+`rhs` | 32-bit signless integer or 32-bit signless integer or ref
+
+### `vm.check.ne` (IREE::VM::CheckNEOp)
+
+raises a global failure if the condition is true
+
+Syntax:
+
+```
+operation ::= `vm.check.ne` $lhs `,` $rhs (`,` $message^)? attr-dict `:` type($lhs)
+```
+
+
+When the condition is true this signals a runtime failure that causes the
+entire active invocation - and possibly *all* in-flight and pending
+invocations - to fail. The status will be propagated back via the available
+runtime error handling mechanisms such as semaphores or synchronous
+invocation results.
+
+This is implemented as a pseudo-op that transforms into a vm.cond_fail
+operation.
+
+```
+vm.check.eq %a, %b, "a == b" : i32
+vm.check.nz %ref, "!null" : !vm.ref<?>
+```
+
+#### Attributes:
+
+| Attribute | MLIR Type | Description |
+| :-------: | :-------: | ----------- |
+`message` | ::mlir::StringAttr | string attribute
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`lhs` | 32-bit signless integer or 32-bit signless integer or ref
+`rhs` | 32-bit signless integer or 32-bit signless integer or ref
+
+### `vm.check.nz` (IREE::VM::CheckNZOp)
+
+raises a global failure if the condition is true
+
+Syntax:
+
+```
+operation ::= `vm.check.nz` $value (`,` $message^)? attr-dict `:` type($value)
+```
+
+
+When the condition is true this signals a runtime failure that causes the
+entire active invocation - and possibly *all* in-flight and pending
+invocations - to fail. The status will be propagated back via the available
+runtime error handling mechanisms such as semaphores or synchronous
+invocation results.
+
+This is implemented as a pseudo-op that transforms into a vm.cond_fail
+operation.
+
+```
+vm.check.eq %a, %b, "a == b" : i32
+vm.check.nz %ref, "!null" : !vm.ref<?>
+```
+
+#### Attributes:
+
+| Attribute | MLIR Type | Description |
+| :-------: | :-------: | ----------- |
+`message` | ::mlir::StringAttr | string attribute
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`value` | 32-bit signless integer or 32-bit signless integer or ref
 
 ### `vm.cmp.eq.i32` (IREE::VM::CmpEQI32Op)
 
@@ -522,6 +635,31 @@ Compares two operands with the specified predicate.
 | :----: | ----------- |
 `result` | 32-bit signless integer
 
+### `vm.cmp.nz.i32` (IREE::VM::CmpNZI32Op)
+
+integer non-zero comparison operation
+
+Syntax:
+
+```
+operation ::= `vm.cmp.nz.i32` $operand attr-dict `:` type($operand)
+```
+
+
+Compares the given integer operand for a non-zero value.
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`operand` | 32-bit signless integer
+
+#### Results:
+
+| Result | Description |
+| :----: | ----------- |
+`result` | 32-bit signless integer
+
 ### `vm.cmp.nz.ref` (IREE::VM::CmpNZRefOp)
 
 ref_ptr non-zero comparison operation
@@ -617,6 +755,50 @@ attached) execution will continue at the target block.
 | :-------: | ----------- |
 `dest` | any successor
 
+### `vm.cond_fail` (IREE::VM::CondFailOp)
+
+raises a global failure if the condition is true
+
+Syntax:
+
+```
+operation ::= `vm.cond_fail` $condition `,` $status (`,` $message^)? attr-dict
+```
+
+
+When the condition is true this signals a runtime failure that causes the
+entire active invocation - and possibly *all* in-flight and pending
+invocations - to fail with the given status. The status will be propagated
+back via the available runtime error handling mechanisms such as semaphores
+or synchronous invocation results.
+
+As the IREE execution model is deeply pipelined it's possible that failures
+have a latency between when they are emitted and when the application can
+observe the failure. It's also possible that other work that is in-flight
+or pending when the failure occurs will complete.
+
+This is implemented as a pseudo-op that transforms into a vm.fail operation
+guarded by the condition.
+
+```
+%nz = vm.cmp.nz.i32 %value : i32
+%statusCode = vm.const.i32 9 : i32
+vm.cond_fail %nz, %statusCode, "expected non-zero"
+```
+
+#### Attributes:
+
+| Attribute | MLIR Type | Description |
+| :-------: | :-------: | ----------- |
+`message` | ::mlir::StringAttr | string attribute
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`condition` | 32-bit signless integer
+`status` | 32-bit signless integer
+
 ### `vm.const.i32` (IREE::VM::ConstI32Op)
 
 32-bit integer constant operation
@@ -627,7 +809,7 @@ Defines a constant value that is treated as a scalar literal at runtime.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`value` | Attribute | anonymous_388
+`value` | Attribute | anonymous_417
 
 #### Results:
 
@@ -760,9 +942,9 @@ exports can reference the same internal functions.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`function_ref` | FlatSymbolRefAttr | flat symbol reference attribute
-`export_name` | StringAttr | string attribute
-`ordinal` | IntegerAttr | ordinal value
+`function_ref` | ::mlir::FlatSymbolRefAttr | flat symbol reference attribute
+`export_name` | ::mlir::StringAttr | string attribute
+`ordinal` | ::mlir::IntegerAttr | ordinal value
 
 ### `vm.ext.i16.i32.s` (IREE::VM::ExtI16I32SOp)
 
@@ -833,11 +1015,16 @@ have a latency between when they are emitted and when the application can
 observe the failure. It's also possible that other work that is in-flight
 or pending when the failure occurs will complete.
 
+```
+%statusCode = vm.const.i32 9 : i32
+vm.fail %statusCode, "oh no!"
+```
+
 #### Attributes:
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`message` | StringAttr | string attribute
+`message` | ::mlir::StringAttr | string attribute
 
 #### Operands:
 
@@ -856,8 +1043,8 @@ All flow control is performed by VM ops.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`ordinal` | IntegerAttr | ordinal value
-`noinline` | UnitAttr | unit attribute
+`ordinal` | ::mlir::IntegerAttr | ordinal value
+`noinline` | ::mlir::UnitAttr | unit attribute
 
 ### `vm.global.address` (IREE::VM::GlobalAddressOp)
 
@@ -897,12 +1084,12 @@ Initialized to zero unless a custom initializer function is specified.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`sym_name` | StringAttr | string attribute
-`type` | TypeAttr | any type attribute
-`is_mutable` | UnitAttr | unit attribute
-`initializer` | FlatSymbolRefAttr | flat symbol reference attribute
-`initial_value` | Attribute | anonymous_391
-`ordinal` | IntegerAttr | ordinal value
+`sym_name` | ::mlir::StringAttr | string attribute
+`type` | ::mlir::TypeAttr | any type attribute
+`is_mutable` | ::mlir::UnitAttr | unit attribute
+`initializer` | ::mlir::FlatSymbolRefAttr | flat symbol reference attribute
+`initial_value` | Attribute | anonymous_420
+`ordinal` | ::mlir::IntegerAttr | ordinal value
 
 ### `vm.global.load.i32` (IREE::VM::GlobalLoadI32Op)
 
@@ -1016,12 +1203,12 @@ replaced with a store or reset.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`sym_name` | StringAttr | string attribute
-`type` | TypeAttr | any type attribute
-`is_mutable` | UnitAttr | unit attribute
-`initializer` | FlatSymbolRefAttr | flat symbol reference attribute
-`initial_value` | UnitAttr | unit attribute
-`ordinal` | IntegerAttr | ordinal value
+`sym_name` | ::mlir::StringAttr | string attribute
+`type` | ::mlir::TypeAttr | any type attribute
+`is_mutable` | ::mlir::UnitAttr | unit attribute
+`initializer` | ::mlir::FlatSymbolRefAttr | flat symbol reference attribute
+`initial_value` | ::mlir::UnitAttr | unit attribute
+`ordinal` | ::mlir::IntegerAttr | ordinal value
 
 ### `vm.global.store.i32` (IREE::VM::GlobalStoreI32Op)
 
@@ -1124,7 +1311,195 @@ an external VM module.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`ordinal` | IntegerAttr | ordinal value
+`ordinal` | ::mlir::IntegerAttr | ordinal value
+
+### `vm.list.alloc` (IREE::VM::ListAllocOp)
+
+allocates a new empty list
+
+Syntax:
+
+```
+operation ::= `vm.list.alloc` operands attr-dict `:` `(` type($initial_capacity) `)` `->` type($result)
+```
+
+
+Allocates a new typed list with a minimum initial_capacity.
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`initial_capacity` | 32-bit signless integer
+
+#### Results:
+
+| Result | Description |
+| :----: | ----------- |
+`result` | list
+
+### `vm.list.get.i32` (IREE::VM::ListGetI32Op)
+
+primitive type element accessor
+
+Syntax:
+
+```
+operation ::= `vm.list.get.i32` operands attr-dict `:` `(` type($list) `,` type($index) `)` `->` type($result)
+```
+
+
+Returns the value of the element at the given index.
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`list` | list<8/16/32-bit integer or 16/32-bit float>
+`index` | 32-bit signless integer
+
+#### Results:
+
+| Result | Description |
+| :----: | ----------- |
+`result` | 32-bit signless integer
+
+### `vm.list.get.ref` (IREE::VM::ListGetRefOp)
+
+ref type element accessor
+
+Syntax:
+
+```
+operation ::= `vm.list.get.ref` operands attr-dict `:` `(` type($list) `,` type($index) `)` `->` type($result)
+```
+
+
+Returns the ref value of the element at the given index. Note that the value
+may be null if the element is null or the type does not match.
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`list` | list
+`index` | 32-bit signless integer
+
+#### Results:
+
+| Result | Description |
+| :----: | ----------- |
+`result` | ref
+
+### `vm.list.reserve` (IREE::VM::ListReserveOp)
+
+reserves capacity for list growth
+
+Syntax:
+
+```
+operation ::= `vm.list.reserve` operands attr-dict `:` `(` type($list) `,` type($minimum_capacity) `)`
+```
+
+
+Reserves storage for at least minimum_capacity elements. If the list already
+has at least the specified capacity the operation is ignored.
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`list` | list
+`minimum_capacity` | 32-bit signless integer
+
+### `vm.list.resize` (IREE::VM::ListResizeOp)
+
+resizes the list to a new count in elements
+
+Syntax:
+
+```
+operation ::= `vm.list.resize` operands attr-dict `:` `(` type($list) `,` type($new_size) `)`
+```
+
+
+Resizes the list to contain new_size elements. This will either truncate
+the list if the existing size is greater than new_size or extend the list
+with the default list value of 0 if storing primitives and null if refs.
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`list` | list
+`new_size` | 32-bit signless integer
+
+### `vm.list.set.i32` (IREE::VM::ListSetI32Op)
+
+primitive type element mutator
+
+Syntax:
+
+```
+operation ::= `vm.list.set.i32` operands attr-dict `:` `(` type($list) `,` type($index) `,` type($value) `)`
+```
+
+
+Sets the element at the given index to the new value.
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`list` | list<8/16/32-bit integer or 16/32-bit float>
+`index` | 32-bit signless integer
+`value` | 32-bit signless integer
+
+### `vm.list.set.ref` (IREE::VM::ListSetRefOp)
+
+ref type element mutator
+
+Syntax:
+
+```
+operation ::= `vm.list.set.ref` operands attr-dict `:` `(` type($list) `,` type($index) `,` type($value) `)`
+```
+
+
+Sets the element at the given index to the new ref value (possibly null).
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`list` | list
+`index` | 32-bit signless integer
+`value` | ref
+
+### `vm.list.size` (IREE::VM::ListSizeOp)
+
+the size of the list in elements
+
+Syntax:
+
+```
+operation ::= `vm.list.size` operands attr-dict `:` `(` type($list) `)` `->` type($result)
+```
+
+
+Returns the current size of the list in elements.
+
+#### Operands:
+
+| Operand | Description |
+| :-----: | ----------- |
+`list` | list
+
+#### Results:
+
+| Result | Description |
+| :----: | ----------- |
+`result` | 32-bit signless integer
 
 ### `vm.module` (IREE::VM::ModuleOp)
 
@@ -1136,8 +1511,8 @@ Top-level container for VM functions.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`sym_name` | StringAttr | string attribute
-`ordinal_counts` | DictionaryAttr | dictionary of named attribute values
+`sym_name` | ::mlir::StringAttr | string attribute
+`ordinal_counts` | ::mlir::DictionaryAttr | dictionary of named attribute values
 
 ### `vm.module_terminator` (IREE::VM::ModuleTerminatorOp)
 
@@ -1242,7 +1617,7 @@ Prints the given string message and zero or more values.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`message` | StringAttr | string attribute
+`message` | ::mlir::StringAttr | string attribute
 
 #### Operands:
 
@@ -1342,9 +1717,9 @@ lifetime.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`sym_name` | StringAttr | string attribute
-`value` | ElementsAttr | constant vector/tensor attribute
-`ordinal` | IntegerAttr | ordinal value
+`sym_name` | ::mlir::StringAttr | string attribute
+`value` | ::mlir::ElementsAttr | constant vector/tensor attribute
+`ordinal` | ::mlir::IntegerAttr | ordinal value
 
 ### `vm.select.i32` (IREE::VM::SelectI32Op)
 
@@ -1428,7 +1803,7 @@ Shifts the operand in a direction by the number of bits specified.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`amount` | IntegerAttr | 8-bit signless integer attribute within the range [0, 32] inclusive
+`amount` | ::mlir::IntegerAttr | 8-bit signless integer attribute within the range [0, 32] inclusive
 
 #### Operands:
 
@@ -1459,7 +1834,7 @@ Shifts the operand in a direction by the number of bits specified.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`amount` | IntegerAttr | 8-bit signless integer attribute within the range [0, 32] inclusive
+`amount` | ::mlir::IntegerAttr | 8-bit signless integer attribute within the range [0, 32] inclusive
 
 #### Operands:
 
@@ -1490,7 +1865,7 @@ Shifts the operand in a direction by the number of bits specified.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`amount` | IntegerAttr | 8-bit signless integer attribute within the range [0, 32] inclusive
+`amount` | ::mlir::IntegerAttr | 8-bit signless integer attribute within the range [0, 32] inclusive
 
 #### Operands:
 
@@ -1609,7 +1984,7 @@ trace verbosity setting.
 
 | Attribute | MLIR Type | Description |
 | :-------: | :-------: | ----------- |
-`event_name` | StringAttr | string attribute
+`event_name` | ::mlir::StringAttr | string attribute
 
 #### Operands:
 
