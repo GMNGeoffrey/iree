@@ -30,11 +30,13 @@ export CMAKE_BIN="$(which cmake)"
 python3 --version
 
 # Print Vulkan related information: SDK version and GPU ICD version
-vulkaninfo 2>/dev/null | grep "Vulkan Instance"
-vulkaninfo 2>/dev/null | grep -A7 "VkPhysicalDeviceProperties"
+vulkaninfo 2>/dev/null | grep "Vulkan Instance" || echo "Vulkan Instance instance found!"
+vulkaninfo 2>/dev/null | grep -A7 "VkPhysicalDeviceProperties"  || echo "VkPhysicalDeviceProperties not found!"
 
 echo "Initializing submodules"
-./scripts/git/submodule_versions.py init
+# ./scripts/git/submodule_versions.py init
+
+touch create_a_file.txt
 
 # TODO(gcmn): It would be nice to be able to build and test as much as possible,
 # so a build failure only prevents building/testing things that depend on it and
