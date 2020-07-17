@@ -29,6 +29,7 @@ WORKDIR="${KOKORO_ARTIFACTS_DIR?}/github/iree"
 # Mount the checked out repository, make that the working directory and run the
 # tests in the bazel image.
 docker run \
+  --user="$(id -u):$(id -g)" \
   --volume "${WORKDIR?}:${WORKDIR?}" \
   --workdir="${WORKDIR?}" \
   --rm \
@@ -37,7 +38,7 @@ docker run \
 
 # Kokoro will rsync this entire directory back to the executor orchestrating the
 # build which takes forever and is totally useless.
-sudo rm -rf "${KOKORO_ARTIFACTS_DIR?}"/*
+rm -r "${KOKORO_ARTIFACTS_DIR?}"/*
 
 # Print out artifacts dir contents after deleting them as a coherence check.
 ls -1a "${KOKORO_ARTIFACTS_DIR?}/"
