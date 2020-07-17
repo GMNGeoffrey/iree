@@ -41,10 +41,7 @@ FROM gcr.io/iree-oss/cmake
 ARG VULKAN_SDK_VERSION=1.2.141
 
 # Disable apt-key parse waring.
-ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
-
-# Disable prompt during keyboard configuration.
-ENV DEBIAN_FRONTEND=noninteractive
+ARG APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 
 RUN wget -qO - http://packages.lunarg.com/lunarg-signing-key-pub.asc | apt-key add - \
   && wget -qO /etc/apt/sources.list.d/lunarg-vulkan-$VULKAN_SDK_VERSION-bionic.list http://packages.lunarg.com/vulkan/$VULKAN_SDK_VERSION/lunarg-vulkan-$VULKAN_SDK_VERSION-bionic.list \
