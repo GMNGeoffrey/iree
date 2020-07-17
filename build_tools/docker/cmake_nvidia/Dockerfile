@@ -38,12 +38,25 @@ FROM gcr.io/iree-oss/cmake
 
 # Additionally, we need to install the Vulkan SDK and the NVIDIA Vulkan driver.
 
-ARG VULKAN_SDK_VERSION=1.2.141
+ARG VULKAN_SDK_VERSION=1.2.141.2
+ARG NVIDIA_DRIVER_VERSION=440.95.01
 
-# Disable apt-key parse waring.
-ARG APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
+RUN echo "downloading Vulkan SDK ${VULKAN_SDK_VERSION?}" \
+    && wget -q --show-progress --progress=bar:force:noscroll \
+      "https://sdk.lunarg.com/sdk/download/${VULKAN_SDK_VERSION?}/linux/vulkansdk-linux-x86_64-${VULKAN_SDK_VERSION?}.tar.gz" \
+      -O "/tmp/vulkansdk-linux-x86_64-${VULKAN_SDK_VERSION?}.tar.gz" \
+    && echo "installing Vulkan SDK ${VULKAN_SDK_VERSION?}" \
+    && mkdir -p /opt/vulkan \
+    && tar -xf /tmp/vulkansdk-linux-x86_64-$VULKAN_SDK_VERSION.tar.gz -C /opt/vulkan \
+    && rm /tmp/vulkansdk-linux-x86_64-$VULKAN_SDK_VERSION.tar.gz
 
-RUN wget -qO - http://packages.lunarg.com/lunarg-signing-key-pub.asc | apt-key add - \
-  && wget -qO /etc/apt/sources.list.d/lunarg-vulkan-$VULKAN_SDK_VERSION-bionic.list http://packages.lunarg.com/vulkan/$VULKAN_SDK_VERSION/lunarg-vulkan-$VULKAN_SDK_VERSION-bionic.list \
-  && apt-get update \
-  && apt-get install -y vulkan-sdk nvidia-driver-440
+RUN echo "downloading NVidia ${NVIDIA_DRIVER_VERSION?}" \
+    && wget --show-progress --progress=bar:force:noscroll \
+      "http://us.download.nvidia.com/tesla/${NVIDIA_DRIVER_VERSION?}/NVIDIA-Linux-x86_64-${NVIDIA_DRIVER_VERSION?}.run" \
+      -O "/tmp/NVIDIA-Linux-x86_64-${NVIDIA_DRIVER_VERSION?}.run" \
+    && cd /tmp \
+    && sh "NVIDIA-Linux-x86_64-${NVIDIA_DRIVER_VERSION?}.run" --extract-only \
+    && cp "/tmp/NVIDIA-Linux-x86_64-${NVIDIA_DRIVER_VERSION?}/libnvidia-cbl.so.${NVIDIA_DRIVER_VERSION?}" /usr/lib/x86_64-linux-gnu/ \
+    && cp "/tmp/NVIDIA-Linux-x86_64-${NVIDIA_DRIVER_VERSION?}/libnvidia-glvkspirv.so.${NVIDIA_DRIVER_VERSION?}" /usr/lib/x86_64-linux-gnu/ \
+    && cp "/tmp/NVIDIA-Linux-x86_64-${NVIDIA_DRIVER_VERSION?}/libnvidia-rtcore.so.${NVIDIA_DRIVER_VERSION?}" /usr/lib/x86_64-linux-gnu/ \
+    && rm -r "/tmp/NVIDIA-Linux-x86_64-${NVIDIA_DRIVER_VERSION?}" "/tmp/NVIDIA-Linux-x86_64-${NVIDIA_DRIVER_VERSION?}.run"
