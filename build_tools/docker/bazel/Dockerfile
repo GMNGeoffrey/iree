@@ -27,40 +27,40 @@
 FROM ubuntu:18.04
 WORKDIR /usr/src/iree
 
-RUN apt-get update
-
 # Set environment variables.
 ENV CXX clang++
 ENV CC clang
 ENV PYTHON_BIN /usr/bin/python3
 ENV IREE_LLVMAOT_LINKER_PATH /usr/bin/ld
 
-# Install git for updating IREE's submodules.
-RUN apt-get install -y git
+RUN apt-get update \
+  && apt-get install -y \
+  # git for updating IREE's submodules.
+  git \
+  # utilities for later installations
+  unzip \
+  zip \
+  wget \
+  # core IREE dependencies.
+  clang \
+  libsdl2-dev \
+  # TF requires python2 numpy at configure time...
+  # TODO(#1737): Remove this
+  python-pip \
+  && python -m pip install --upgrade pip \
+  && python -m pip install numpy
 
 # Install Bazel.
 # https://docs.bazel.build/versions/master/install-ubuntu.html
 ARG BAZEL_VERSION=2.1.0
-RUN apt-get install -y unzip zip wget \
-  && wget "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION?}/bazel-${BAZEL_VERSION?}-installer-linux-x86_64.sh" \
+RUN wget "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION?}/bazel-${BAZEL_VERSION?}-installer-linux-x86_64.sh" \
   && chmod +x "bazel-${BAZEL_VERSION?}-installer-linux-x86_64.sh" \
-  && "./bazel-${BAZEL_VERSION?}-installer-linux-x86_64.sh" --user \
+  && "./bazel-${BAZEL_VERSION?}-installer-linux-x86_64.sh" \
   && rm "bazel-${BAZEL_VERSION?}-installer-linux-x86_64.sh"
 # Install a newer version of Bazel. We don't need the full installation now.
 # Just need to provide a different version for the version-identification
-# wrapper script to find in /root/.bazel/bin
+# wrapper script to find in /usr/local/lib/bazel/bin
 ARG NEW_BAZEL_VERSION=3.3.1
-RUN cd "/root/.bazel/bin" \
+RUN cd "/usr/local/lib/bazel/bin" \
   && wget "https://releases.bazel.build/${NEW_BAZEL_VERSION?}/release/bazel-${NEW_BAZEL_VERSION?}-linux-x86_64" \
   && chmod +x "bazel-${NEW_BAZEL_VERSION?}-linux-x86_64"
-# ENV does not allow ${variable?} syntax.
-ENV PATH "/root/bin:${PATH}"
-
-# Install core IREE dependencies.
-RUN apt-get install -y clang libsdl2-dev
-
-# Install python2 numpy. Temporary fix for issue #1737:
-# https://github.com/google/iree/issues/1737
-RUN apt-get install -y python-pip \
-  && python -m pip install --upgrade pip \
-  && python -m pip install numpy
