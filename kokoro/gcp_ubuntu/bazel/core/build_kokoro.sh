@@ -26,18 +26,35 @@ export PS4='[$(date -u "+%T %Z")] '
 # Kokoro checks out the repository here.
 WORKDIR="${KOKORO_ARTIFACTS_DIR?}/github/iree"
 
+# Create a home directory for Bazel
+# Bazel creates the build output directory in the user HOME by default. You can
+# pass it a startup flag to control this, but then we'd have to make the Bazel
+# build script know about Docker/Kokoro nonsense.
+HOME="${KOKORO_ROOT?}/home"
+mkdir -p "${HOME?}"
+
+declare -a docker_run_args
+docker_run_args=(
+  # Mount the Kokoro directory
+  --volume="${KOKORO_ROOT?}:${KOKORO_ROOT?}"
+  # Kokoro checks out the repository here
+  --workdir="${KOKORO_ARTIFACTS_DIR?}/github/iree"
+  # Run as the current user so that they own any files created.
+  --user="$(id -u):$(id -g)"
+  # Bazel gets upset if it can't figure out USER. Since the user id we're using
+  # isn't registered in the docker container, it otherwise won't be able to
+  # figure this out.
+  -e USER="$(id -u)"
+  # Bazel needs to know this. See above.
+  -e HOME="${HOME?}"
+  --rm
+  gcr.io/iree-oss/bazel:latest
+  kokoro/gcp_ubuntu/bazel/core/build.sh
+)
+
 # Mount the checked out repository, make that the working directory and run the
 # tests in the bazel image.
-docker run \
-  --user="$(id -u)" \
-  -e USER="$(id -u)" \
-  -e HOME="${KOKORO_ARTIFACTS_DIR?}"
-  --output_user_root=/tmp/build_output \
-  --volume "${KOKORO_ARTIFACTS_DIR?}:${KOKORO_ARTIFACTS_DIR?}" \
-  --workdir="${WORKDIR?}" \
-  --rm \
-  gcr.io/iree-oss/bazel:latest \
-  kokoro/gcp_ubuntu/bazel/core/build.sh
+docker run "${docker_run_args[@]?}"
 
 # Kokoro will rsync this entire directory back to the executor orchestrating the
 # build which takes forever and is totally useless.
