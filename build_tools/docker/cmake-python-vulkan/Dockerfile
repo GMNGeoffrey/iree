@@ -17,4 +17,5 @@
 
 FROM gcr.io/iree-oss/cmake-python AS final
 
-COPY --from=gcr.io/iree-oss/vulkan /usr/share/vulkan /usr/share/vulkan
+COPY --from=gcr.io/iree-oss/vulkan /opt/vulkan /opt/vulkan
+ENV VULKAN_SDK="/opt/vulkan/${VULKAN_SDK_VERSION}/x86_64"

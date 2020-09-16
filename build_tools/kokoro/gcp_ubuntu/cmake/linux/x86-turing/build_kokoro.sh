@@ -33,7 +33,7 @@ docker_setup
 
 docker run "${DOCKER_RUN_ARGS[@]?}" \
   --gpus all \
-  gcr.io/iree-oss/cmake-python-nvidia@sha256:9e8485c72721580e00530a129d1d3bd10c42951c255ecfdc61557f1c7b2aff51 \
+  gcr.io/iree-oss/cmake-python-nvidia@sha256:d02bcd3adf97a034907f6bdcc0911b75e338be98d126aae0b17aef5568d6a848 \
   build_tools/kokoro/gcp_ubuntu/cmake/linux/x86-turing/build.sh
 
 # Kokoro will rsync this entire directory back to the executor orchestrating the
