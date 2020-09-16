@@ -45,8 +45,8 @@ For development, IREE supports both Bazel and CMake on Windows and Linux. We are
 working on enabling macOS support. For deployment, IREE aims to additionally
 cover Android and iOS.
 
-Please see the [Getting Started](https://google.github.io/iree/GetStarted) pages
-on IREE's [documentation hub](https://google.github.io/iree) to configure,
+Please see the [Getting Started](https://google.github.io/iree/get-started)
+pages on IREE's [documentation hub](https://google.github.io/iree) to configure,
 compile, and run IREE in your favorite development environment!
 
 ## Documentation and Talks
@@ -76,7 +76,7 @@ hardware/API-specific binaries like SPIR-V.
 
 The architecture of IREE is best illustrated by the following picture:
 
-![IREE Architecture](./docs/IREE-Architecture.svg)
+![IREE Architecture](./docs/iree_architecture.svg)
 
 Being compilation-based means IREE does not have a traditional runtime that
 dispatches "ops" to their fat kernel implementations. What IREE provides is a
@@ -108,8 +108,8 @@ IREE aims to
 ## Roadmap and Milestones
 
 IREE is still at its early stage; we have lots of exciting future plans. Please
-check out the [long-term design roadmap](./docs/roadmap_design.md) and
-[short-term focus areas](./docs/roadmap.md).
+check out the [long-term design roadmap](./docs/design_roadmap.md) and
+[short-term focus areas](./docs/milestones.md).
 
 We use [GitHub Projects](https://github.com/google/iree/projects) to track
 various IREE components and
@@ -118,13 +118,16 @@ features and quarterly plans. Please check out for updated information.
 
 ## Build Status
 
-CI System | Platform | Build System | Component            | Status
-:-------: | :------: | :----------: | :------------------: | :----:
-Kokoro    | Linux    | Bazel        | Core                 | [![kokoro-status-linux-bazel-core](https://storage.googleapis.com/iree-oss-build-badges/linux/bazel/core/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/linux/bazel/core/main_result.html)
-Kokoro    | Linux    | Bazel        | Bindings             | [![kokoro-status-linux-bazel-bindings](https://storage.googleapis.com/iree-oss-build-badges/linux/bazel/bindings/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/linux/bazel/bindings/main_result.html)
-Kokoro    | Linux    | Bazel        | Integrations         | [![kokoro-status-linux-bazel-integrations](https://storage.googleapis.com/iree-oss-build-badges/linux/bazel/integrations/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/linux/bazel/integrations/main_result.html)
-Kokoro    | Linux    | CMake        | Core + Bindings      | [![kokoro-status-linux-cmake](https://storage.googleapis.com/iree-oss-build-badges/linux/cmake/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/linux/cmake/main_result.html)
-Kokoro    | Android  | CMake        | Runtime (build only) | [![kokoro-status-android-cmake](https://storage.googleapis.com/iree-oss-build-badges/cmake/android/arm64-v8a/google_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/cmake/android/arm64-v8a/google_result.html)
+CI System | Build System | Platform | Architecture    | Component            | Status
+:-------: | :----------: | :------: | :-------------: | :------------------: | :----:
+Kokoro    | Bazel        | Linux    | x86             | Core                 | [![kokoro_status_bazel_linux_x86_core](https://storage.googleapis.com/iree-oss-build-badges/bazel/linux/x86-swiftshader/core/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/bazel/linux/x86-swiftshader/core/main_result.html)
+Kokoro    | Bazel        | Linux    | x86             | Bindings             | [![kokoro_status_bazel_linux_x86_bindings](https://storage.googleapis.com/iree-oss-build-badges/bazel/linux/x86-swiftshader/bindings/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/bazel/linux/x86-swiftshader/bindings/main_result.html)
+Kokoro    | Bazel        | Linux    | x86-swiftshader | Integrations         | [![kokoro_status_bazel_linux_x86-swiftshader_integrations](https://storage.googleapis.com/iree-oss-build-badges/bazel/linux/x86-swiftshader/integrations/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/bazel/linux/x86-swiftshader/integrations/main_result.html)
+Kokoro    | Bazel        | Linux    | x86-turing      | Integrations         | [![kokoro_status_bazel_linux_x86-turing_integrations](https://storage.googleapis.com/iree-oss-build-badges/bazel/linux/x86-turing/integrations/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/bazel/linux/x86-turing/integrations/main_result.html)
+Kokoro    | CMake        | Linux    | x86-swiftshader | Core + Bindings      | [![kokoro_status_cmake_linux_x86-swiftshader](https://storage.googleapis.com/iree-oss-build-badges/cmake/linux/x86-swiftshader/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/cmake/linux/x86-swiftshader/main_result.html)
+Kokoro    | CMake        | Linux    | x86-turing      | Core + Bindings      | [![kokoro_status_cmake_linux_x86-turing](https://storage.googleapis.com/iree-oss-build-badges/cmake/linux/x86-turing/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/cmake/linux/x86-turing/main_result.html)
+Kokoro    | CMake        | Android  | arm64-v8a       | Runtime (build only) | [![kokoro_status_cmake_android_arm64-v8a](https://storage.googleapis.com/iree-oss-build-badges/cmake/android/arm64-v8a/main_status.svg)](https://storage.googleapis.com/iree-oss-build-badges/cmake/android/arm64-v8a/main_result.html)
+BuildKite | CMake        | Android  | arm64-v8a       | Runtime              | [![buildkite-status-cmake-android-arm](https://badge.buildkite.com/a73df0ba9f4aa132650dd6676bc1e6c20d3d99ed6b24db2179.svg?branch=main)](https://buildkite.com/iree/iree-android-arm64-v8a/builds?branch=main)
 
 ## License
 
