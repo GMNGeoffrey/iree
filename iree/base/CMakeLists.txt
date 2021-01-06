@@ -406,7 +406,7 @@ iree_cc_library(
   PUBLIC
 )
 
-iree_cc_test(
+iree_cc_binary(
   NAME
     synchronization_benchmark
   SRCS
