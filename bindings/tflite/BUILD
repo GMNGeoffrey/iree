@@ -48,6 +48,7 @@ cc_library(
     deps = [
         "//iree/base:api",
         "//iree/base:core_headers",
+        "//iree/base:internal",
         "//iree/base:threading",
         "//iree/base:tracing",
         "//iree/hal:api",
@@ -68,11 +69,13 @@ cc_test(
     # TODO(benvanik): bazel/cmake to include this generated file.
     # Checked in right now until I can figure it out.
     # data = [
-    #     "//bindings/tflite/testdata:add.module",
+    #     "//bindings/tflite/testdata:add.vmfb",
     # ],
     deps = [
         ":shim",
-        "//bindings/tflite/testdata:add_cc",
+        "//bindings/tflite/testdata:add_dynamic_cc",
+        "//bindings/tflite/testdata:add_multi_cc",
+        "//bindings/tflite/testdata:add_static_cc",
         "//iree/testing:gtest",
         "//iree/testing:gtest_main",
     ],

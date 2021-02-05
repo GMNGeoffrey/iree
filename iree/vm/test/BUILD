@@ -34,11 +34,12 @@ endif()
 cc_embed_data(
     name = "all_bytecode_modules_cc",
     srcs = [
-        ":arithmetic_ops.module",
-        ":arithmetic_ops_i64.module",
-        ":comparison_ops.module",
-        ":control_flow_ops.module",
-        ":list_ops.module",
+        ":arithmetic_ops.vmfb",
+        ":arithmetic_ops_i64.vmfb",
+        ":comparison_ops.vmfb",
+        ":control_flow_ops.vmfb",
+        ":list_ops.vmfb",
+        ":shift_ops.vmfb",
     ],
     cc_file_output = "all_bytecode_modules.cc",
     cpp_namespace = "iree::vm::test",
@@ -73,6 +74,13 @@ iree_bytecode_module(
 iree_bytecode_module(
     name = "list_ops",
     src = "list_ops.mlir",
+    cc_namespace = "iree::vm::test",
+    flags = ["-iree-vm-ir-to-bytecode-module"],
+)
+
+iree_bytecode_module(
+    name = "shift_ops",
+    src = "shift_ops.mlir",
     cc_namespace = "iree::vm::test",
     flags = ["-iree-vm-ir-to-bytecode-module"],
 )

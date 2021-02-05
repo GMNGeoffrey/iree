@@ -22,11 +22,12 @@ iree_cc_embed_data(
   NAME
     all_bytecode_modules_cc
   GENERATED_SRCS
-    "arithmetic_ops.module"
-    "arithmetic_ops_i64.module"
-    "comparison_ops.module"
-    "control_flow_ops.module"
-    "list_ops.module"
+    "arithmetic_ops.vmfb"
+    "arithmetic_ops_i64.vmfb"
+    "comparison_ops.vmfb"
+    "control_flow_ops.vmfb"
+    "list_ops.vmfb"
+    "shift_ops.vmfb"
   CC_FILE_OUTPUT
     "all_bytecode_modules.cc"
   H_FILE_OUTPUT
@@ -82,6 +83,18 @@ iree_bytecode_module(
     list_ops
   SRC
     "list_ops.mlir"
+  CC_NAMESPACE
+    "iree::vm::test"
+  FLAGS
+    "-iree-vm-ir-to-bytecode-module"
+  PUBLIC
+)
+
+iree_bytecode_module(
+  NAME
+    shift_ops
+  SRC
+    "shift_ops.mlir"
   CC_NAMESPACE
     "iree::vm::test"
   FLAGS
