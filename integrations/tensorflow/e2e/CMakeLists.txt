@@ -140,3 +140,50 @@ function(add_all_e2e_tests pattern)
 endfunction()
 
 add_all_e2e_tests("*_test.py")
+
+
+function(iree_e2e_cartesian_product_test_suite)
+  cmake_parse_arguments(
+    CMAKE_RULE_MESSAGES
+    ""
+    "NAME"
+    "MATRIX_KEYS;MATRIX_VALUES;FAILING_CONFIGURATIONS"
+    ${ARGN}
+  )
+
+  list(LENGTH _RULE_MATRIX_KEYS _MATRIX_KEY_COUNT)
+  list(LENGTH _RULE_MATRIX_VALUES _MATRIX_VALUE_COUNT)
+
+  if(NOT _MATRIX_KEY_COUNT EQUAL _MATRIX_VALUE_COUNT)
+  message(SEND_ERROR
+      "MATRIX_KEYS count ${_MATRIX_KEY_COUNT} does not match MATRIX_VALUES count ${_MATRIX_VALUE_COUNT}")
+  endif()
+
+  math(EXPR _MAX_INDEX "${_TARGET_BACKEND_COUNT} - 1")
+
+  set(_CONFIGURATIONS "")
+
+  foreach(_INDEX RANGE "${_MAX_INDEX}")
+    list(GET _RULE_MATRIX_KEYS ${_INDEX} _MATRIX_KEY)
+    list(GET _RULE_MATRIX_VALUES ${_INDEX} _MATRIX_VALUE)
+
+  endforeach()
+endfunction()
+
+file(GLOB _GLOB_TEST_X_PY LIST_DIRECTORIES false RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS *_test.py)
+
+iree_e2e_cartesian_product_test_suite(
+  NAME
+    e2e_tests
+  MATRIX_KEYS
+    "src"
+    "target_backends"
+    "reference_backend"
+  MATRIX_VALUES
+    _GLOB_TEST_X_PY
+    _TARGET_BACKENDS
+    _REFERENCE_BACKEND
+  FAILING_CONFIGURATIONS
+    "src:concat_test.py target_backends:tflite reference_backend:tf"
+    "src:einsum_dynamic_test.py target_backends:tflite reference_backend:tf"
+)
