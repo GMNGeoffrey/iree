@@ -22,13 +22,7 @@ package(
     licenses = ["notice"],  # Apache 2.0
 )
 
-cc_library(
-    name = "conversion",
-    deps = [
-        ":convert_tf_strings_to_strings",
-        ":convert_tf_to_tf_strings",
-    ],
-)
+cc_library(name = "conversion")
 
 cc_library(
     name = "convert_tf_strings_to_strings",
@@ -37,17 +31,6 @@ cc_library(
     ],
     hdrs = [
         "convert_tf_strings_to_strings.h",
-    ],
-    deps = [
-        "//iree_tf_compiler/dialect/tf_strings/ir:dialect",
-        "//iree_tf_compiler/dialect/tf_strings/ir:ops",
-        "//iree_tf_compiler/dialect/utils:conversion_utils",
-        "@iree//iree/compiler/Dialect/Modules/Strings/IR",
-        "@iree//iree/compiler/Dialect/Modules/Strings/IR:Dialect",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:Transforms",
     ],
 )
 
@@ -77,18 +60,5 @@ cc_library(
     ],
     hdrs = [
         "convert_tf_to_tf_strings.h",
-    ],
-    deps = [
-        ":convert_tf_to_tf_strings_rewriter_gen",
-        "//iree_tf_compiler/dialect/tf_strings/ir",
-        "//iree_tf_compiler/dialect/tf_strings/ir:dialect",
-        "//iree_tf_compiler/dialect/tf_strings/ir:ops",
-        "//iree_tf_compiler/dialect/utils:conversion_utils",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:Transforms",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow:tensorflow_types",
     ],
 )

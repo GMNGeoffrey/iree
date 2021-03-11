@@ -19,9 +19,10 @@
 #   https://github.com/google/iree/blob/main/scripts/update_e2e_coverage.py
 
 load(
-    "@iree//integrations/tensorflow/e2e:iree_e2e_cartesian_product_test_suite.bzl",
+    "//e2e:iree_e2e_cartesian_product_test_suite.bzl",
     "iree_e2e_cartesian_product_test_suite",
 )
+load("@iree//build_tools/bazel:enforce_glob.bzl", "enforce_glob")
 
 package(
     default_visibility = ["//visibility:public"],
@@ -36,16 +37,45 @@ package(
         srcs = [src],
         main = src,
         python_version = "PY3",
-        deps = [
-            "//third_party/py/absl:app",
-            "//third_party/py/absl/flags",
-            "//third_party/py/numpy",
-            "//third_party/py/pyiree:pylib_tf_support",
-            "//third_party/py/tensorflow",
-            "//util/debuginfo:signalsafe_addr2line_installer",
-        ],
     )
     for src in glob(["*_test.py"])
+]
+
+ALL_SRCS = [
+    "batch_norm_test.py",
+    "batch_to_space_nd_test.py",
+    "broadcast_to_test.py",
+    "broadcasting_test.py",
+    "concat_test.py",
+    "control_flow_test.py",
+    "conv_test.py",
+    "conv_transpose_test.py",
+    "depth_conv_test.py",
+    "dynamic_mlp_relu_test.py",
+    "dynamic_mlp_test.py",
+    "einsum_dynamic_test.py",
+    "einsum_static_test.py",
+    "einsum_vector_test.py",
+    "fft_test.py",
+    "fill_test.py",
+    "gather_test.py",
+    "image_resize_test.py",
+    "linspace_test.py",
+    "mandelbrot_test.py",
+    "matrix_ops_dynamic_test.py",
+    "matrix_ops_static_test.py",
+    "quantization_dyn_test.py",
+    "quantization_test.py",
+    "range_test.py",
+    "resource_ops_test.py",
+    "ring_buffer_test.py",
+    "scatter_update_test.py",
+    "simple_arithmetic_test.py",
+    "simple_stateful_test.py",
+    "sliding_window_test.py",
+    "space_to_batch_nd_test.py",
+    "strings_test.py",
+    "tensorlist_test.py",
 ]
 
 # keep sorted
@@ -145,8 +175,9 @@ iree_e2e_cartesian_product_test_suite(
         },
     ],
     matrix = {
-        "src": glob(
-            ["*_test.py"],
+        "src": enforce_glob(
+            ALL_SRCS,
+            include = ["*_test.py"],
             exclude = ["mobile_bert_squad_test.py"],
         ),
         "target_backends": [
@@ -158,14 +189,6 @@ iree_e2e_cartesian_product_test_suite(
         ],
         "reference_backend": "tf",
     },
-    deps = [
-        "//third_party/py/absl:app",
-        "//third_party/py/absl/flags",
-        "//third_party/py/numpy",
-        "//third_party/py/pyiree:pylib_tf_support",
-        "//third_party/py/tensorflow",
-        "//util/debuginfo:signalsafe_addr2line_installer",
-    ],
 )
 
 iree_e2e_cartesian_product_test_suite(
@@ -189,13 +212,5 @@ iree_e2e_cartesian_product_test_suite(
         "no-remote",
         "nokokoro",
         "notap",
-    ],
-    deps = [
-        "//third_party/py/absl:app",
-        "//third_party/py/absl/flags",
-        "//third_party/py/numpy",
-        "//third_party/py/pyiree:pylib_tf_support",
-        "//third_party/py/tensorflow",
-        "//util/debuginfo:signalsafe_addr2line_installer",
     ],
 )

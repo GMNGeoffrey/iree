@@ -18,10 +18,4 @@ package(
     licenses = ["notice"],  # Apache 2.0
 )
 
-cc_library(
-    name = "tf_strings",
-    deps = [
-        "//iree_tf_compiler/dialect/tf_strings/conversion",
-        "//iree_tf_compiler/dialect/tf_strings/ir",
-    ],
-)
+cc_library(name = "tf_strings")

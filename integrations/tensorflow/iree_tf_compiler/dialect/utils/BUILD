@@ -23,12 +23,4 @@ cc_library(
     hdrs = [
         "conversion_utils.h",
     ],
-    deps = [
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:StandardOpsTransforms",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:Transforms",
-    ],
 )

@@ -141,49 +141,44 @@ endfunction()
 
 add_all_e2e_tests("*_test.py")
 
-
-function(iree_e2e_cartesian_product_test_suite)
+function(iree_py_test)
   cmake_parse_arguments(
-    CMAKE_RULE_MESSAGES
+    _RULE
     ""
-    "NAME"
-    "MATRIX_KEYS;MATRIX_VALUES;FAILING_CONFIGURATIONS"
+    "NAME;SRC"
+    "ARGS;LABELS"
     ${ARGN}
   )
 
-  list(LENGTH _RULE_MATRIX_KEYS _MATRIX_KEY_COUNT)
-  list(LENGTH _RULE_MATRIX_VALUES _MATRIX_VALUE_COUNT)
+  iree_package_ns(_PACKAGE_NS)
+  string(REPLACE "::" "/" _PACKAGE_PATH ${_PACKAGE_NS})
+  set(_TEST_NAME "${_PACKAGE_PATH}/${_RULE_NAME}")
 
-  if(NOT _MATRIX_KEY_COUNT EQUAL _MATRIX_VALUE_COUNT)
-  message(SEND_ERROR
-      "MATRIX_KEYS count ${_MATRIX_KEY_COUNT} does not match MATRIX_VALUES count ${_MATRIX_VALUE_COUNT}")
-  endif()
-
-  math(EXPR _MAX_INDEX "${_TARGET_BACKEND_COUNT} - 1")
-
-  set(_CONFIGURATIONS "")
-
-  foreach(_INDEX RANGE "${_MAX_INDEX}")
-    list(GET _RULE_MATRIX_KEYS ${_INDEX} _MATRIX_KEY)
-    list(GET _RULE_MATRIX_VALUES ${_INDEX} _MATRIX_VALUE)
-
-  endforeach()
+  add_test(
+    NAME
+      ${_TEST_NAME}
+    WORKING_DIRECTORY
+      "${CMAKE_CURRENT_BINARY_DIR}"
+    COMMAND
+      "${Python3_EXECUTABLE}" -B
+      "${CMAKE_CURRENT_SOURCE_DIR}/${filename}"
+      ${_RULE_ARGS}
+  )
+  list(APPEND _RULE_LABELS "${_PACKAGE_PATH}")
+  set_property(TEST "${_TEST_NAME}" PROPERTY LABELS "${_RULE_LABELS}")
+  set_property(TEST ${_name} PROPERTY ENVIRONMENT
+      "PYTHONPATH=${CMAKE_BINARY_DIR}/bindings/python")
 endfunction()
 
-file(GLOB _GLOB_TEST_X_PY LIST_DIRECTORIES false RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS *_test.py)
 
-iree_e2e_cartesian_product_test_suite(
+iree_py_test(
   NAME
-    e2e_tests
-  MATRIX_KEYS
-    "src"
-    "target_backends"
-    "reference_backend"
-  MATRIX_VALUES
-    _GLOB_TEST_X_PY
-    _TARGET_BACKENDS
-    _REFERENCE_BACKEND
-  FAILING_CONFIGURATIONS
-    "src:concat_test.py target_backends:tflite reference_backend:tf"
-    "src:einsum_dynamic_test.py target_backends:tflite reference_backend:tf"
+    e2e_tests__concat__vmla
+  SRC
+    "concat_test.py"
+  ARGS
+    "--target_backends=iree_vmla"
+    "--reference_backend=tf"
+  LABELS
+    "driver=vmla"
 )

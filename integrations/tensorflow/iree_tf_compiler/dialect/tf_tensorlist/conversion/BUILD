@@ -28,16 +28,6 @@ cc_library(
     hdrs = [
         "convert_tf_to_tf_tensorlist.h",
     ],
-    deps = [
-        ":convert_tf_to_tf_tensorlist_rewriter_gen",
-        "//iree_tf_compiler/dialect/tf_tensorlist/ir:tf_tensorlist_dialect",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Transforms",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow:tensorflow_types",
-    ],
 )
 
 gentbl(
@@ -67,17 +57,5 @@ cc_library(
     ],
     hdrs = [
         "convert_tf_tensorlist_to_tensorlist.h",
-    ],
-    deps = [
-        "//iree_tf_compiler/dialect/tf_tensorlist/ir",
-        "//iree_tf_compiler/dialect/tf_tensorlist/ir:tf_tensorlist_dialect",
-        "//iree_tf_compiler/dialect/utils:conversion_utils",
-        "@iree//iree/compiler/Dialect/Modules/TensorList/IR",
-        "@iree//iree/compiler/Dialect/Modules/TensorList/IR:TensorListDialect",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:Transforms",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow",
     ],
 )

@@ -62,13 +62,7 @@ gentbl(
     ],
 )
 
-cc_library(
-    name = "ir",
-    deps = [
-        ":dialect",
-        ":ops",
-    ],
-)
+cc_library(name = "ir")
 
 cc_library(
     name = "dialect",
@@ -77,13 +71,6 @@ cc_library(
     ],
     hdrs = [
         "dialect.h",
-    ],
-    deps = [
-        ":op_interface_gen",
-        ":ops",
-        ":ops_gen",
-        "@llvm-project//llvm:Support",
-        "@llvm-project//mlir:IR",
     ],
 )
 
@@ -97,11 +84,5 @@ cc_library(
         "ops.h",
         "ops.h.inc",
         "types.h",
-    ],
-    deps = [
-        ":op_interface_gen",
-        ":ops_gen",
-        "@llvm-project//llvm:Support",
-        "@llvm-project//mlir:IR",
     ],
 )

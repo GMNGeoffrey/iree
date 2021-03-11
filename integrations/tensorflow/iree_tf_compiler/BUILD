@@ -21,82 +21,24 @@ package(
 cc_binary(
     name = "iree-tf-opt",
     srcs = ["iree-tf-opt-main.cpp"],
-    deps = [
-        "//iree_tf_compiler/TF",
-        "//iree_tf_compiler/dialect/tf_strings/ir:dialect",
-        "//iree_tf_compiler/dialect/tf_tensorlist/ir:tf_tensorlist_dialect",
-        "@iree//iree/tools:init_xla_dialects",
-        "@llvm-project//llvm:Support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:MlirOptLib",
-        "@llvm-project//mlir:Support",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow:tf_saved_model_passes",
-        "@org_tensorflow//tensorflow/compiler/mlir/xla:xla_legalize_tf",
-    ],
 )
 
 cc_binary(
     name = "iree-opt-tflite",
     srcs = ["iree-opt-tflite-main.cpp"],
-    deps = [
-        "//iree_tf_compiler/TFL",
-        "@llvm-project//llvm:Support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:MlirOptLib",
-        "@llvm-project//mlir:QuantOps",
-        "@llvm-project//mlir:StandardOps",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:TosaDialect",
-        "@org_tensorflow//tensorflow/compiler/mlir/lite:tensorflow_lite",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow",
-    ],
 )
 
 cc_binary(
     name = "iree-tf-import",
     srcs = ["iree-tf-import-main.cpp"],
-    deps = [
-        "//iree_tf_compiler/TF",
-        "@llvm-project//llvm:Support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Support",
-        "@org_tensorflow//tensorflow/cc/saved_model:loader",
-        "@org_tensorflow//tensorflow/compiler/mlir:init_mlir",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow:convert_graphdef",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow:tf_dialect_passes",
-        "@org_tensorflow//tensorflow/core/platform:errors",
-    ],
 )
 
 cc_binary(
     name = "iree-import-tflite",
     srcs = ["iree-import-tflite-main.cpp"],
-    deps = [
-        "//iree_tf_compiler/TFL",
-        "@llvm-project//llvm:Support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Pass",
-        "@llvm-project//mlir:Support",
-        "@llvm-project//mlir:TosaDialect",
-        "@org_tensorflow//tensorflow/compiler/mlir/lite:flatbuffer_import",
-        "@org_tensorflow//tensorflow/compiler/mlir/lite:tensorflow_lite",
-    ],
 )
 
 cc_binary(
     name = "iree-import-xla",
     srcs = ["iree-import-xla-main.cpp"],
-    deps = [
-        "//iree_tf_compiler/TF",
-        "@llvm-project//llvm:Support",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:Support",
-        "@org_tensorflow//tensorflow/compiler/mlir/xla:hlo_to_mlir_hlo",
-        "@org_tensorflow//tensorflow/compiler/xla/service:hlo_parser",
-        "@org_tensorflow//tensorflow/compiler/xla/service:hlo_proto_cc",
-        "@org_tensorflow//tensorflow/core:lib",
-    ],
 )

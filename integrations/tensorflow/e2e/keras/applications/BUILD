@@ -19,7 +19,7 @@
 #   https://github.com/google/iree/blob/main/scripts/update_e2e_coverage.py
 
 load(
-    "@iree//integrations/tensorflow/e2e:iree_e2e_cartesian_product_test_suite.bzl",
+    "//e2e:iree_e2e_cartesian_product_test_suite.bzl",
     "iree_e2e_cartesian_product_test_suite",
 )
 
@@ -62,14 +62,6 @@ Command arguments description:
         srcs = [src],
         main = src,
         python_version = "PY3",
-        deps = [
-            "//third_party/py/absl:app",
-            "//third_party/py/absl/flags",
-            "//third_party/py/numpy",
-            "//third_party/py/pyiree:pylib_tf_support",
-            "//third_party/py/tensorflow",
-            "//util/debuginfo:signalsafe_addr2line_installer",
-        ],
     )
     for src in glob(["*_test.py"])
 ]
@@ -128,14 +120,6 @@ iree_e2e_cartesian_product_test_suite(
         ],
     },
     tags = ["manual"],
-    deps = [
-        "//third_party/py/absl:app",
-        "//third_party/py/absl/flags",
-        "//third_party/py/numpy",
-        "//third_party/py/pyiree:pylib_tf_support",
-        "//third_party/py/tensorflow",
-        "//util/debuginfo:signalsafe_addr2line_installer",
-    ],
 )
 
 iree_e2e_cartesian_product_test_suite(
@@ -195,14 +179,6 @@ iree_e2e_cartesian_product_test_suite(
         "nokokoro",
         "notap",
     ],
-    deps = [
-        "//third_party/py/absl:app",
-        "//third_party/py/absl/flags",
-        "//third_party/py/numpy",
-        "//third_party/py/pyiree:pylib_tf_support",
-        "//third_party/py/tensorflow",
-        "//util/debuginfo:signalsafe_addr2line_installer",
-    ],
 )
 
 # 'non_hermetic' tests use real model weights to test numerical correctness.
@@ -235,14 +211,6 @@ iree_e2e_cartesian_product_test_suite(
         "no-remote",
         "nokokoro",
         "notap",
-    ],
-    deps = [
-        "//third_party/py/absl:app",
-        "//third_party/py/absl/flags",
-        "//third_party/py/numpy",
-        "//third_party/py/pyiree:pylib_tf_support",
-        "//third_party/py/tensorflow",
-        "//util/debuginfo:signalsafe_addr2line_installer",
     ],
 )
 
@@ -306,14 +274,6 @@ iree_e2e_cartesian_product_test_suite(
         "nokokoro",
         "notap",
     ],
-    deps = [
-        "//third_party/py/absl:app",
-        "//third_party/py/absl/flags",
-        "//third_party/py/numpy",
-        "//third_party/py/pyiree:pylib_tf_support",
-        "//third_party/py/tensorflow",
-        "//util/debuginfo:signalsafe_addr2line_installer",
-    ],
 )
 
 # It is used to produce weights for keras vision models with input image size
@@ -325,12 +285,4 @@ py_binary(
     srcs = ["train_vision_models_on_cifar.py"],
     python_version = "PY3",
     srcs_version = "PY2AND3",
-    deps = [
-        "//third_party/py/absl:app",
-        "//third_party/py/absl/flags",
-        "//third_party/py/numpy",
-        "//third_party/py/pyiree:pylib_tf_support",
-        "//third_party/py/tensorflow",
-        "//util/debuginfo:signalsafe_addr2line_installer",
-    ],
 )

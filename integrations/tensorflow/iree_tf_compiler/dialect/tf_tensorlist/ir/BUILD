@@ -48,26 +48,12 @@ cc_library(
     textual_hdrs = [
         "tf_tensorlist_ops.cc.inc",
     ],
-    deps = [
-        ":tf_tensorlist_ops_gen",
-        "@iree//iree/compiler/Dialect/HAL/IR",
-        "@iree//iree/compiler/Dialect/IREE/IR",
-        "@llvm-project//mlir:IR",
-        "@llvm-project//mlir:InferTypeOpInterface",
-        "@llvm-project//mlir:SideEffects",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow",
-        "@org_tensorflow//tensorflow/compiler/mlir/tensorflow:tensorflow_types",
-    ],
 )
 
 cc_library(
     name = "tf_tensorlist_dialect",
     srcs = ["tf_tensorlist_dialect.cc"],
     hdrs = ["tf_tensorlist_dialect.h"],
-    deps = [
-        ":ir",
-        "@llvm-project//mlir:IR",
-    ],
 )
 
 gentbl(
