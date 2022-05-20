@@ -29,6 +29,8 @@ import urllib
 import requests
 from pybuildkite import buildkite
 
+from common.buildkite_utils import get_existing_pipeline
+
 GIT_REPO = "https://github.com/google/iree"
 PIPELINE_ROOT_PATH = "build_tools/buildkite/pipelines"
 TRUSTED_BOOTSTRAP_PIPELINE_PATH = os.path.join(PIPELINE_ROOT_PATH, "fragment",
@@ -50,16 +52,6 @@ def get_git_root():
                         check=True,
                         stdout=subprocess.PIPE,
                         text=True).stdout.strip()
-
-
-def get_existing_pipeline(bk, *, organization, pipeline_slug):
-  try:
-    pipeline = bk.pipelines().get_pipeline(organization, pipeline_slug)
-  except requests.exceptions.HTTPError as e:
-    if e.response.status_code == 404:
-      return None
-    raise e
-  return pipeline
 
 
 def prepend_header(configuration, *, organization, running_pipeline,
