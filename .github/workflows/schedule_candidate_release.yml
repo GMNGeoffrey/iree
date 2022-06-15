@@ -6,6 +6,9 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   tag_release:
     name: "Tag candidate release"
@@ -16,7 +19,7 @@ jobs:
       - name: Checking out repository
         uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e  # v2
         with:
-          token: ${{ secrets.WRITE_ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compute version
         run: |
@@ -33,7 +36,7 @@ jobs:
       - name: Pushing changes
         uses: ad-m/github-push-action@40bf560936a8022e68a3c00e7d2abefaf01305a6  # v0.6.0
         with:
-          github_token: ${{ secrets.WRITE_ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref_name }}
           tags: true
 
@@ -41,7 +44,7 @@ jobs:
         id: create_release
         uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e  # v1
         env:
-          GITHUB_TOKEN: ${{ secrets.WRITE_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.tag_name }}
           release_name: iree candidate ${{ env.tag_name }}
@@ -54,6 +57,6 @@ jobs:
         uses: benc-uk/workflow-dispatch@4c044c1613fabbe5250deadc65452d54c4ad4fc7  # v1
         with:
           workflow: Build Native Release Packages
-          token: ${{ secrets.WRITE_ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           ref: "${{ env.tag_name }}"
           inputs: '{"package_suffix": "", "package_version": "${{ env.package_version }}", "release_id": "${{ steps.create_release.outputs.id }}"}'
