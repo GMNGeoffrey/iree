@@ -21,9 +21,6 @@
 #include "mlir/Pass/PassRegistry.h"
 #include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 
-// TODO: move these flags to a header file shared with runtime/.
-#define IREE_VMVX_MATMUL_FLAG_ACCUMULATE 1
-
 namespace mlir {
 namespace iree_compiler {
 
@@ -876,30 +873,25 @@ struct LinalgMatmulConversion
       rhs = contract.rhs();
       out = op.outputs().front();
     }
-  };
 
-  static bool isSupportedElementTypes(const OpInfo &info) {
-    Type lhsElType = info.lhs.getType().cast<ShapedType>().getElementType();
-    Type rhsElType = info.rhs.getType().cast<ShapedType>().getElementType();
-    Type outElType = info.out.getType().cast<ShapedType>().getElementType();
-    if (lhsElType.isF32() && rhsElType.isF32() && outElType.isF32()) {
-      return true;
+    Value getOneValue(PatternRewriter &rewriter) {
+      Location loc = op.getLoc();
+      Type elementType = out.getType().cast<MemRefType>().getElementType();
+      if (auto floatType = elementType.dyn_cast<FloatType>()) {
+        return rewriter.create<arith::ConstantOp>(
+            loc, FloatAttr::get(floatType, 1.0));
+      } else if (elementType.isa<IntegerType>()) {
+        return rewriter.create<arith::ConstantIntOp>(loc, 1, elementType);
+      }
+
+      assert(false && "unknown element type");
+      return nullptr;
     }
-    if (lhsElType.isSignlessInteger(8) && rhsElType.isSignlessInteger(8) &&
-        outElType.isSignlessInteger(32)) {
-      return true;
-    }
-    return false;
-  }
+  };
 
   LogicalResult matchAndRewrite(linalg::ContractionOpInterface op,
                                 PatternRewriter &rewriter) const override {
     OpInfo info(op);
-
-    if (!isSupportedElementTypes(info)) {
-      return rewriter.notifyMatchFailure(
-          op, "unsupported combination of lhs/rhs/out element types");
-    }
 
     // Check that buffer descriptors could be computed.
     if (!info.lhsAnal.isValid() || !info.rhsAnal.isValid() ||
@@ -920,7 +912,8 @@ struct LinalgMatmulConversion
     }
 
     // Switch on contraction type.
-    if (info.contract.isRowMajorMatmul()) {
+    if (info.contract.isRowMajorMatmul() ||
+        info.contract.isColumnMajorMatmul()) {
       if (succeeded(handleConformingMatmul2D(info, rewriter))) {
         return success();
       }
@@ -936,14 +929,27 @@ struct LinalgMatmulConversion
     auto &lhsDesc = info.lhsAnal.getDesc(rewriter);
     auto &rhsDesc = info.rhsAnal.getDesc(rewriter);
     auto &outDesc = info.outAnal.getDesc(rewriter);
-    int flags = IREE_VMVX_MATMUL_FLAG_ACCUMULATE;
     // Determine m, n, k based on dims.
-    if (!info.contract.isRowMajorMatmul()) {
+    int flags = 0;
+    Value m, n, k;
+    if (info.contract.isRowMajorMatmul()) {
+      m = lhsDesc.sizes[0];
+      k = rhsDesc.sizes[0];
+      n = rhsDesc.sizes[1];
+    } else if (info.contract.isColumnMajorMatmul()) {
+      m = lhsDesc.sizes[0];
+      k = rhsDesc.sizes[1];
+      n = rhsDesc.sizes[0];
+      // TODO: Flag constants somewhere.
+      flags |= 1;
+    } else {
       return failure();
     }
-    Value m = lhsDesc.sizes[0];
-    Value k = rhsDesc.sizes[0];
-    Value n = rhsDesc.sizes[1];
+
+    // Alpha/beta: We always start the lowering with alpha/beta set to 1.
+    // Simplification patterns within VMVX will simplify this if possible.
+    Value alpha = info.getOneValue(rewriter);
+    Value beta = alpha;
 
     auto lhsBuffer = lhsDesc.castToLinear(loc, rewriter);
     auto rhsBuffer = rhsDesc.castToLinear(loc, rewriter);
@@ -959,6 +965,8 @@ struct LinalgMatmulConversion
         outBuffer, outDesc.offset, outDesc.strides[0],
         // m,n,k
         m, n, k,
+        // alpha, beta
+        alpha, beta,
         // flags
         lhsDesc.getElementTypeAttr(), rhsDesc.getElementTypeAttr(),
         outDesc.getElementTypeAttr(), rewriter.getI32IntegerAttr(flags));
