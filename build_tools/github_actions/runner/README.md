@@ -124,9 +124,9 @@ rolling out these updates involves a few steps.
 ### MIG Rolling Updates
 
 See https://cloud.google.com/compute/docs/instance-groups/updating-migs for the
-main documentation. There are two modes for a roling MIG update, "proactive" and
-"opportunistic" (AKA "selective"). There are also three different actions the
-MIG can take to update an instance: "refresh", "restart", and "replace". A
+main documentation. There are two modes for a rolling MIG update, "proactive"
+and "opportunistic" (AKA "selective"). There are also three different actions
+the MIG can take to update an instance: "refresh", "restart", and "replace". A
 "refresh" update only allows updating instance metadata or adding extra disks,
 but is mostly safe to run as a "proactive" update. Instances will pick up the
 changes to the startup script when they restart naturally. If there are changes
